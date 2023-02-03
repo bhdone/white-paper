@@ -4,9 +4,9 @@ const { label, labelRect, rect } = require('./tikzpicture.js');
 exports.hashPack = (x, y, scoopNum, hashList) => {
     const HASH_WIDTH = 1;
     const HASH_HEIGHT = 0.6;
-    const MARGIN = 0.1;
+    const MARGIN = 0.2;
     const TITLE_HEIGHT = 0.3;
-    const WIDTH = MARGIN * 3 + HASH_WIDTH * 2;
+    const WIDTH = MARGIN * (hashList.length + 1) + HASH_WIDTH * hashList.length;
     const HEIGHT = HASH_HEIGHT + MARGIN * 3 + TITLE_HEIGHT;
     return () => {
         let script = '';

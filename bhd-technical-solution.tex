@@ -176,9 +176,11 @@ Hash $\#8191$ and Hash $\#8190$. This time we pre-append Hash $\#8190$ to the la
 \begin{flushleft}
     When we are mining we read nonce from one or more plot files. The miner software will open a plot file and seek the scoop locations to read the scoops data. If the plot file is unoptimized, the scoop location will be on more than one place. In the following example the miner will be seeking and reading scoop $\#403$.
 \end{flushleft}
+\input{graph-seeking_reading_scoop_403}
 \begin{flushleft}
     This is not the most effective way since the miner will spend a lot of time to seek new locations on the storage device to be able to read the scoops. To prevent this, we can optimize plots or use plotter software that creates optimized plots from the beginning. Optimization is done by reordering the data in the plot file and grouping all data from the same scoop number together.
 \end{flushleft}
+\input{graph-unoptimized_optimized}
 \begin{flushleft}
     Basically, what we have done is to divide the plot file into 4096 portions where we split up all the nonces data based on scoop numbers. When the miner now wants to read Scoop 4096 it only seeks one time and read all data sequentially. This provides better performance.
 \end{flushleft}
