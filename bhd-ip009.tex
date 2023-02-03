@@ -1,4 +1,4 @@
-\chapter{Update to Chia Consensus}
+\chapter{Update to Chia consensus}
 \begin{flushleft}
     BHD is updated to new consensus. Plot files were made from old consensus are no longer used, miners need to update plot files to new consensus with new algorithms. BHD wallet client, miner program should be updated as well.
 \end{flushleft}
@@ -119,9 +119,30 @@
 \begin{flushleft}
     Therefore, we are chaining VDFs, but committing to a new value in between. This is used so that we have a linear progression of blocks, alternating proofs of space with proofs of time.
 \end{flushleft}
-\section{Chains}
+\section{Blockchain}
+\begin{flushleft}
+    After BHD blockchain hard-fork, some of the properties have been changed according the consensus algorithms.
+\end{flushleft}
 \subsection{Challenge}
+\begin{flushleft}
+    The BHD consensus algorithm relies on timelords running VDFs for each block, which are adjusted periodically (and automatically) to take around 2 minutes. During every block, challenges are generated according previous block, and a sort of mini lottery starts, where farmers check their plots for proofs of space. When farmers find a proof of space that qualifies, they broadcast it to the network after the VDF calculation with required\_iterations is finished.
+\end{flushleft}
+\begin{flushleft}
+    \textbf{INFO}\\[5pt]
+    \textit{A block is always targeted to last 2 minutes.}
+\end{flushleft}
+\begin{flushleft}
+    A challenge is always a 256-bit hash. It is released when a new block is added to blockchain it is changed on every block. The challenge services both PoC and VDF for every block.
+\end{flushleft}
 \subsection{Blocks}
+\begin{flushleft}
+    BHD will release a new block every 2 minutes. The basic information are assembled into the block such as UTXO TXs, Proof of Capacity, VDF proofs and difficulty.
+\end{flushleft}
+\subsection{Difficulty}
+\begin{flushleft}
+    Difficulty is the value represents the weight of current block. According to current netspace and VDF speed, difficulty will be adjusted automatically. By difficulty adjusting, the time to release a new block will be around 2 minutes. The difficulty adjusts automatically to target each block winning proofs for the entire network.
+\end{flushleft}
 \subsection{Weight}
-\subsection{VDF}
-\subsection{Weight}
+\begin{flushleft}
+    Weight is the value that sums the value of difficulty up from current block to genesis block.
+\end{flushleft}
