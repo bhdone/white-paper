@@ -278,24 +278,27 @@
     The amount of total supply is increased to 42,000,000.
 \end{flushleft}
 \begin{itemize}
-    \item Distribute the amount of already supplied to foundation address
-    \item Double the outcome of the coinbase on each new block
+    \item The total amount of currency to be distributed in each block will be doubled after hard-fork
+    \item Send the same amount of currency as the total amount of currency that has already been distributed to the foundation address
 \end{itemize}
 \subsection{Pledge}
 \begin{flushleft}
-    Miners are still need to deposit amount of BHD to blockchain in order to get full reward from their new blocks. But the way to determinate the deposit amount is changed.
+    Miners still need to pledge currency to get the maximum mining profit, but the conditions for pledge have changed a bit.
 \end{flushleft}
 \subsubsection{No fund to foundation}
 \begin{flushleft}
-    Foundation won't receive fund from new blocks anymore, all funds from coinbase will be released to miner eventually.
+    The Foundation will no longer be funded in future blocks.
 \end{flushleft}
 \subsubsection{Netspace related}
 \begin{flushleft}
-    The amount to pledge will be adjusted according the network space. The required amount will be increased when the network space is increased. The minimum network space is 100PB.
+    The amount that a miner needs to pledge will be related to its netspace and total supplied amount. To calculate the pledge amount for each tera bytes, use the formula below.
 \end{flushleft}
 \begin{equation}
-    Amount = \frac{TotalSupply}{NetworkSpace}
+    Amount_{TB} = \frac{TotalSupplied}{NetworkSpace_{TB}}
 \end{equation}
+\begin{flushleft}
+    \textit{Please note: when the calculated netspace of the entire network is less than 100PB, we will assume the netspace of the entire network is 100PB.}
+\end{flushleft}
 \subsubsection{Adjustment of reward ratio}
 \begin{flushleft}
     When the amount of pledge is not enough for a miner to claim all rewards from a new block, miners will only get $15\%$ of the block rewards, the rest $85\%$ will be locked in the chain until the miner who has enough amount of pledge to claim all rewards.
@@ -311,9 +314,22 @@
     \hline
     \rowcolor{lightgray}\textbf{Period} & \textbf{Ratio} \\[5pt]
     \hline
-    Current Deposit & $8\%$ \\[5pt]
+    Current Deposit (1 week) & $8\%$ \\[5pt]
     \rowcolor{lightgray!30} 1 year & $20\%$ \\[5pt]
     2 years & $50\%$ \\[5pt]
     \rowcolor{lightgray!30} 3 years & $100\%$ \\[5pt]
     \hline
 \end{tabular}
+\subsubsection{Example}
+\begin{flushleft}
+    We assume that there is a miner with a netspace of $15_{PB}$. Assume that the current netspace of the entire network is $200_{PB}$ and the total supplied amount of currency is $10,000_{BHD}$. Thus, according to the formula, the total amount of currency that needs to be pledged per PB is $\frac{10,000}{200}=50$. The miner in order to obtain $100\%$ mining rewards, a total of $750_{BHD}$ needs to be pledged to the chain.
+\end{flushleft}
+\begin{flushleft}
+    The miner can choose one of the following pledge plans:
+    \begin{enumerate}
+        \item Deposit $9375_{BHD}$ to the chain with period ``Current Deposit''
+        \item Deposit $3750_{BHD}$ to the chain with period ``1 year''
+        \item Deposit $1500_{BHD}$ to the chain with period ``2 years''
+        \item Deposit $750_{BHD}$ to the chain with period ``3 years''
+    \end{enumerate}
+\end{flushleft}
