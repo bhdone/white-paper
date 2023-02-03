@@ -148,8 +148,16 @@
     A challenge is always a 256-bit hash. It is released when a new block has been added to blockchain. The challenge services both PoS and VDF.
 \end{flushleft}
 \subsection{Quality and ``required\_iterations''}
+\subsubsection{Quality}
 \begin{flushleft}
-    There are more than 1 proofs can be found from miners plots for every challenge. But there is only 1 proof can be included in the new block. ``required\_iterations'' is the way to identify the quality of a proof and it is calculated from the proof itself. Smaller of the number means the better quality it is. The block contains with the proof with better quality will be released earlier than others.
+    The number of quality is used to represent the quality of a proof of space which is found from plots. According the quality, an iterations will be calculated and it controls how many times should be passed before miner can post the block with the PoS.
+\end{flushleft}
+\begin{equation}
+    Quality = \frac{QualityString * Plot_{size}}{2^{256}}
+\end{equation}
+\subsubsection{Iterations}
+\begin{flushleft}
+    ``required\_iterations'' is the number that VDF should run with. To verify a VDF proof not just only verify the proof itself, we also need to ensure the number of iterations is exceeded the requirement from PoS. Smaller of the number means the better quality it is. The block contains with the proof with better quality will be released earlier than others.
 \end{flushleft}
 \begin{equation}
     Iters = Difficulty * Difficulty_{factor} * \frac{QualityString}{2^{256} * Plot_{size}}
@@ -179,23 +187,26 @@
 \end{flushleft}
 \subsubsection{Difficulty adjustment}
 \begin{flushleft}
-    Adjustment equation of the difficulty is trying to find the new weight of the next block by fixing the value of difficulty.
+    The equation of the difficulty adjustment is trying to calculate the new weight of next block. Adjusting difficulty also affects the number of iterations, this is also the way how the new block releases after 2 minutes.
 \end{flushleft}
 \begin{equation}
     NewDifficulty = \frac{Weight_{current} - Weight_{previous}}{Time_{CurrentBlock} * Time_{PreferBlock}}
 \end{equation}
 \subsection{Network space}
 \begin{flushleft}
-    Network space is the value that represents total amount of space which are allocated to generate current blockchain. Network space can be calculated from the difficulty of the last block on the chain.
+    Network space is the value that represents total amount of space those are allocated to generate current blockchain. Network space can be calculated from the difficulty of the last block on the chain.
 \end{flushleft}
 \begin{equation}
     NetSpace = \frac{Difficulty_{current}}{Iters_{current}}*{DifficultyConstantFactor}*2^{FilterBits}
 \end{equation}
+\begin{flushleft}
+    \textit{Please note: the calculated size is not exactly the value of the network space. It is just the rule to mesure the network.}
+\end{flushleft}
 \section{Block validation}
 \subsection{Block format}
 \subsubsection{Proof of Space}
 \begin{flushleft}
-    To verify the Proof of Space, we need to obtain ``Plot-Id''. ``Plot-Id'' can be calculated from ``Local pk'', ``Farmer pk'', ``Pool pk'' or ``Contract puzzle hash''.
+    To verify a PoS, the ``PlotId'' from plot is required, and we also need the public-key of the farmer (aka ``farmer-pk'') to verify the signature later. The plot also needs to be verified to ensure it is owned by the farmer. Record all related fields is the best way to accomplish it.
 \end{flushleft}
 \begin{tabular}{ |p{3cm}|p{3cm}|p{6cm}| }
     \hline
@@ -211,7 +222,7 @@
 \end{tabular}
 \subsubsection{VDF proofs}
 \begin{flushleft}
-    Verify VDF proof to ensure that the prover has spent a certain number of times.
+    Verify VDF proof is more easier. Provide ``Proof'', ``Y'', ``witness type'' and ``Iterations'' to verify function will get the result. And the verifier also need to ensure the number of iterations is enough to satisify the consensus.
 \end{flushleft}
 \begin{tabular}{ |p{3cm}|p{3cm}|p{6cm}| }
     \hline
@@ -225,29 +236,19 @@
 \end{tabular}
 \subsubsection{Void blocks}
 \begin{flushleft}
-    Void block is required when no proof of space can be found from the entired network. Include a void block in order to mix a new challenge, but it requires the prover spend a certain number of times. Theoratically, a block can obtain more than one void blocks.
+    Void block is required when no PoS can be found from the entired network. Include a void block in order to mix a new challenge, but it requires the prover spend a certain number of times. The mechanism is to make sure the miner is not able to use it to select a better challenge that cost nothing but ensure the blockchain is continued when no PoS can be found from the entired network. Theoratically, a block can obtain more than one void blocks. It is exactly the same of a VDF proof but stores in an array.
 \end{flushleft}
-\begin{tabular}{ |p{3cm}|p{3cm}|p{6cm}| }
-    \hline
-    \rowcolor{lightgray}\textbf{Name} & \textbf{Data type} & \textbf{Description} \\[5pt]
-    \hline
-    Y & multi-bytes & large prime discriminant \\[5pt]
-    \rowcolor{lightgray!30} Proof & multi-bytes & The proof of time \\[5pt]
-    Witness type & 1-byte & The type of witness \\[5pt]
-    \rowcolor{lightgray!30} Iterations & 64-bit & The number of iterations \\[5pt]
-    \hline
-\end{tabular}
 \subsubsection{Farmer signature}
 \begin{flushleft}
-    Farmer signature is used to ensure the owner of the proof of space. The signature can be verified by farmer-pk. The number of bytes of the signature is 96.
+    Farmer signature is used to ensure the owner of the proof of space. The signature can be verified by ``farmer-pk''. The number of bytes of the signature is 96.
 \end{flushleft}
 \subsubsection{Quality}
 \begin{flushleft}
-    A 64-bit number represents the quality of proof of space.
+    A 64-bit number represents the quality of proof of space. The way to verify the quality is use the equation we mention before.
 \end{flushleft}
 \subsubsection{Difficulty}
 \begin{flushleft}
-    Difficulty is a 64-bit constant number represents the network space.
+    Difficulty is a 64-bit constant number represents the network space. The difficulty can be calculated from previous block.
 \end{flushleft}
 \subsection{Verify block}
 \begin{flushleft}
@@ -304,7 +305,7 @@
     Now the miner needs to select the type of period for every new pledge. The type of period determinates the ratio value of the total amount that the pledge actual works.
 \end{flushleft}
 \begin{flushleft}
-    The pledge will not be able to withdraw until the agreed day arrives. The type of period with the ratio of pledge can be found in the following table.
+    The pledge will not be able to withdraw until the agreed day arrives. The type of period with the ratio of pledge can be found from the following table.
 \end{flushleft}
 \begin{tabular}{ |p{5cm}|p{3cm}| }
     \hline
