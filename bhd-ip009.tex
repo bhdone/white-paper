@@ -1,9 +1,9 @@
 \chapter{Update to Chia consensus}
 \begin{flushleft}
-    In the new version of BHD.
+    In the new version of BHD, consensus mechanism is updated.
     \begin{enumerate}
-        \item Consensus Chia's PoST
-        \item Economic model
+        \item Consensus has been upgraded to Chia's PoST
+        \item Economic model is updated
     \end{enumerate}
 \end{flushleft}
 \section{Introduction}
@@ -149,11 +149,17 @@
 \end{flushleft}
 \subsection{Quality and ``required\_iterations''}
 \begin{flushleft}
-    There are more than 1 proofs can be found from miners plots for every challenge. But there is only 1 proof can be included in the new block. ``required\_iterations'' is the way to identify the quality of a proof and it is calculated from the proof itself. More smaller of the number means the better quality it is. The block contains with the proof with better quality will be released earlier than others.
+    There are more than 1 proofs can be found from miners plots for every challenge. But there is only 1 proof can be included in the new block. ``required\_iterations'' is the way to identify the quality of a proof and it is calculated from the proof itself. Smaller of the number means the better quality it is. The block contains with the proof with better quality will be released earlier than others.
+\end{flushleft}
+\begin{equation}
+    Iters = Difficulty * Difficulty_{factor} * \frac{QualityString}{2^{256} * Plot_{size}}
+\end{equation}
+\begin{flushleft}
+    QualityString is mixed from current challenge and proof. $\frac{QualityString}{2^{256}}$ is a number between 0 and 1, multiply the number with the size of plot file will get the quality of the proof. The quality is used to multiply with difficulty in order to get the number of iterations. $Difficulty_{factor}$ is a constant number to fix the iterations to a reasonable range.
 \end{flushleft}
 \subsection{Blocks}
 \begin{flushleft}
-    BHD will release a new block every 2 minutes. The basic information are assembled into the block such as transactions, Proof of Space, VDF proofs and difficulty.
+    BHD releases block every 2 minutes. The basic information are assembled into the block such as transactions, Proof of Space, VDF proofs and difficulty.
 \end{flushleft}
 \subsubsection{Block generation steps}
 \begin{enumerate}
