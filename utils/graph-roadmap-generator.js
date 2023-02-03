@@ -47,7 +47,7 @@ const entries = [
         time: 'Q1, 2023',
         title: '\\textbf{Chia consensus}',
         desc: 'In 2023, BHD will be compatible \\\\with Chia\'s old agreement documents \\\\for mining.',
-        height: 1.8,
+        height: 2,
     },
     {
         title: '\\textbf{10000 peta bytes}',
