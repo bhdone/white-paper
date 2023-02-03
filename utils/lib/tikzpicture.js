@@ -22,7 +22,7 @@ const propAdd = (script, prop) => {
 
 exports.label = (x, y, title, color, anchor) => {
     return () => {
-        let tag = '';
+        let tag = propAdd(null, { name: 'align', value: 'left' });
         if (color) {
             tag = propAdd(tag, color);
         }

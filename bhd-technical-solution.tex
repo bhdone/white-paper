@@ -171,6 +171,7 @@ Hash $\#8191$ and Hash $\#8190$. This time we pre-append Hash $\#8190$ to the la
         MirrorScoop = 4095 - CurrentScoop
     \end{equation}
 \end{flushleft}
+\input{graph-poc_format}
 \subsection{Plot Structure}
 \begin{flushleft}
     When we are mining we read nonce from one or more plot files. The miner software will open a plot file and seek the scoop locations to read the scoops data. If the plot file is unoptimized, the scoop location will be on more than one place. In the following example the miner will be seeking and reading scoop $\#403$.
