@@ -1,10 +1,10 @@
 \chapter{Update to Chia consensus}
 \begin{flushleft}
-    BHD is updated to new consensus. Plot files were made from old consensus are no longer used, miners need to update plot files to new consensus with new algorithms. BHD wallet client, miner program should be updated as well.
+    BHD's consensus has been upgraded. Those plots were made from old consensus are no longer worked, miners need to update there plots to new consensus with new algorithms. BHD wallet client, miner program should be updated as well.
 \end{flushleft}
 \section{Introduction}
 \begin{flushleft}
-    Decenterialized consensus algorithms require to consume scarce resources, such as computing power, staked money and storage space. Proof of time (VDF) is applied to new consensus of BHD. Which makes BHD network more secure and safe. A verified delay function (VDF) is a cryptographic proof can be used to ensure that real time has passed.
+    Decenterialized consensus algorithms require to consume scarce resources, such as computing power, staked money and storage space. BHD is continuing to use storage space to secure the network. Timelord has been added to provide a reliable cryptographic, it is able to proof the real time has passed.
 \end{flushleft}
 \begin{flushleft}
     BHD cryptocurrency system combines Proof of Capacity (PoC) and Time (PoT). All required proofs are submitted to block-chain and can be verified by everyone. All random-looking data are stored on user's local storage devices. Miners need to find the correct answer by searching those random-looking data to win the lottery. No funds, special hardware, registration or permission is required to join except a hard driver and internet connection.
@@ -141,6 +141,10 @@
 \begin{flushleft}
     A challenge is always a 256-bit hash. It is released when a new block is added to blockchain it is changed on every block. The challenge services both PoC and VDF for every block.
 \end{flushleft}
+\subsection{Quality and required\_iterations}
+\begin{flushleft}
+    There are more than 1 proofs can be found from miners plots for every challenge. But there is only 1 proof should be included in the new block. ``required\_iterations'' is the way to identify the quality of a proof and it is calculated from the proof itself. More smaller of the number means better quality it is. The block contains with the proof with better quality will be released earlier than others.
+\end{flushleft}
 \subsection{Blocks}
 \begin{flushleft}
     BHD will release a new block every 2 minutes. The basic information are assembled into the block such as transactions, Proof of Capacity, VDF proofs and difficulty.
@@ -152,6 +156,7 @@
     \item Wait and retrieve VDF proof from timelord, the iterations must satisify the requirement
     \item Create new block and pack with all proofs and TXs etc
 \end{enumerate}
+\input{graph-block_generation}
 \subsection{Difficulty}
 \begin{flushleft}
     Difficulty is the value represents the weight of current block. According to current netspace and VDF speed, difficulty will be adjusted automatically. By difficulty adjusting, the time to release a new block will be around 2 minutes. The difficulty adjusts automatically to target each block winning proofs for the entire network.
@@ -184,22 +189,22 @@
 \end{itemize}
 \subsection{Pledge}
 \begin{flushleft}
-    Miners are still need to deposit in order to get full reward from new block. But the way to determinate the deposit amount is changed. Also there are some properties are changed or added.
+    Miners are still need to deposit amount of BHD to blockchain in order to get full reward from their new blocks. But the way to determinate the deposit amount is changed.
 \end{flushleft}
 \subsubsection{No fund to foundation}
 \begin{flushleft}
-    Foundation won't receive fund from new blocks, all funds from coinbase will be released to miner.
+    Foundation won't receive fund from new blocks anymore, all funds from coinbase will be released to miner eventually.
 \end{flushleft}
 \subsubsection{Netspace related}
 \begin{flushleft}
-    The amount to pledge for each TeraBytes will be adjusted according current network space. The minimum network space is 100PB, the network space is set to 100PB when it is less than 100PB. The required amount will be increased when the network space is increased.
+    The amount to pledge for each TeraBytes will be adjusted according the network space. The minimum network space is 100PB, it is set to 100PB when it is less than 100PB. The required amount will be increased when the network space is increased.
 \end{flushleft}
 \begin{equation}
     Amount = \frac{TotalSupply}{NetworkSpace}
 \end{equation}
 \subsubsection{Adjustment of reward ratio}
 \begin{flushleft}
-    When the amount of pledge is not enough for a miner to acquire all rewards from a new block. The miner will only get $15\%$ of the block rewards, the rest $85\%$ will be stored on the chain until the miner who has enought amount of pledge to claim all rewards.
+    When the amount of pledge is not enough for a miner to claim all rewards from a new block, miners will only get $15\%$ of the block rewards, the rest $85\%$ will be locked on the chain until the miner who has enought amount of pledge to claim all rewards.
 \end{flushleft}
 \subsubsection{Ratio of pledge}
 \begin{flushleft}

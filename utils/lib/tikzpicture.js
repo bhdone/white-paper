@@ -36,14 +36,29 @@ exports.label = (x, y, title, color, anchor) => {
     }
 }
 
-exports.labelRect = (x, y, width, height, title, color) => {
+exports.labelRect = (x, y, width, height, title, color, bgColor) => {
+    const MARGIN = 0.1;
     return () => {
         let script = '';
-        script += exports.rect(x, y, width, height, color, true)().script;
+        if (bgColor) {
+            script += exports.fillRect(x, y, width, height, bgColor, true)().script;
+        } else {
+            script += exports.rect(x, y, width, height, color, true)().script;
+        }
         script += exports.label(x, y, title, color, 'south west')().script
         return {
             script,
-            props: { x, y, width, height, title, color }
+            props: {
+                x, y, width, height, title, color,
+                left: { x, y: y + height / 2 },
+                right: { x: x + width, y: y + height / 2 },
+                top: { x: x + width / 2, y: y + height },
+                bottom: { x: x + width / 2, y },
+                topLeft: { x: x + MARGIN, y: y + height - MARGIN },
+                topRight: { x: x + width - MARGIN, y: y + height - MARGIN },
+                bottomLeft: { x: x + MARGIN, y: y + MARGIN },
+                bottomRight: { x: x + width - MARGIN, y: y + MARGIN }
+            }
         }
     }
 }
@@ -64,11 +79,14 @@ exports.rect = (x, y, width, height, color, round) => {
     }
 }
 
-exports.fillRect = (x, y, width, height, color) => {
+exports.fillRect = (x, y, width, height, color, round) => {
     return () => {
         let tag = '';
         if (color) {
             tag = color;
+        }
+        if (round) {
+            tag = propAdd(tag, 'rounded corners');
         }
         return {
             script: `\\filldraw[${tag}] (${x},${y}) rectangle (${x + width},${y + height});`,
@@ -104,6 +122,19 @@ exports.arrowLine = (x, y, x2, y2, color, reverse) => {
         return {
             script: `\\draw[${tag}] (${x},${y}) -- (${x2},${y2});`,
             props: { x, y, x2, y2, color, reverse },
+        }
+    }
+}
+
+exports.circle = (x, y, r, color) => {
+    return () => {
+        let tag = '';
+        if (color) {
+            tag = propAdd(tag, color);
+        }
+        return {
+            script: `\\draw[${tag}] (${x},${y}) circle (${r});`,
+            props: { x, y, r },
         }
     }
 }
