@@ -14,7 +14,7 @@ const LINE_2ND_Y = -0.6;
 add(fontSize('tiny'));
 
 add(titleLine(LINE_OFFSET, 0, PEOPLE_DIST - LINE_OFFSET, 0, '2. challenge', DESC_COLOR));
-add(titleLine(LINE_OFFSET, LINE_2ND_Y, PEOPLE_DIST - LINE_OFFSET, LINE_2ND_Y, '4. proof of capacity', DESC_COLOR, true));
+add(titleLine(LINE_OFFSET, LINE_2ND_Y, PEOPLE_DIST - LINE_OFFSET, LINE_2ND_Y, '4. Proof of Space', DESC_COLOR, true));
 
 const START_X = 7.5;
 const LEN = 2;
@@ -29,6 +29,6 @@ const MARGIN = 0.5;
 const TITLE_MARGIN = 0.1;
 
 add(rect(p1Props.left.x - MARGIN, -2.5, 13.5, 4, 'lightgray', true));
-add(label(p1Props.left.x - MARGIN + TITLE_MARGIN, 1.5 - TITLE_MARGIN, 'Proof of capacity', 'black', 'north west'));
+add(label(p1Props.left.x - MARGIN + TITLE_MARGIN, 1.5 - TITLE_MARGIN, 'Proof of Space', 'black', 'north west'));
 
 console.log(finalize());

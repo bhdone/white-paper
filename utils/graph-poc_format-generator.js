@@ -8,7 +8,7 @@ const HEIGHT = 4;
 const MARGIN = 0.2;
 const TITLE_HEIGHT = 0.4;
 add(fillRect(0, 0, WIDTH, HEIGHT, 'lightgray!30'));
-add(label(0, HEIGHT, 'Nonce POC1', 'black', 'north west'));
+add(label(0, HEIGHT, 'Nonce PoS1', 'black', 'north west'));
 
 const spd0 = add(hashPack(MARGIN, MARGIN, 'Scoop $\\#0$', ['Hash\\\\$\\#0$', 'Hash\\\\$\\#8191$']));
 const spd1 = add(hashPack(MARGIN * 2 + spd0.width, MARGIN, 'Scoop $\\#2$', ['Hash\\\\$\\#0$', 'Hash\\\\$\\#8189$']));

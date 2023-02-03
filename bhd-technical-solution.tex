@@ -1,8 +1,11 @@
 \chapter{BHD's Technical Solution}
 \begin{flushleft}
-    BHD uses PoC as the basis of its consensus mechanism, it ensures sound development of the entire crypto currency by designing a long-term incentive economic model. At the same time, it has made some improvements to the existing PoC and upgraded it to the CPoC consensus.
+    BHD uses PoS as the basis of its consensus mechanism, it ensures sound development of the entire crypto currency by designing a long-term incentive economic model. At the same time, it has made some improvements to the existing PoS and upgraded it to the CPoS consensus.
 \end{flushleft}
-\section{BHD Distribution and Mining\\Mechanism}
+\section{BHD Distribution and Mining Mechanism}
+\begin{flushleft}
+    \textit{Please note: some of the chain parameters are updated after BHD upgrade to Chia's consensus. Check the chapter ``Update to Chia consensus''.}
+\end{flushleft}
 \begin{tabular}{ p{4cm} p{8cm} }
     \hline
     \textbf{Total supply}                           & 21 million                                                                                               \\[5pt]
@@ -20,18 +23,18 @@
     In the first month, after mining of the genesis block, miner can mine with no condition limitation. From the second month onwards, the $30\%$ return that does not meet the conditional capacity mining revenue remains the same. For the remaining $70\%$, $43\%$ is directly accumulated to the next eligible conditional address, and the remaining $27\%$ is allocated to the BHD Development Foundation. For every 33,600 blocks (about 10 weeks) after, the BHD Development Foundation's revenue will be reduced by $2\%$, and the partial accumulation will be reduced to the next block that meets the conditions for mining. By the first halving, the BHD Foundation's revenue will be reduced to $5\%$ and stay at that amount. $65\%$ of the income that does not meet the conditional capacity mining will accumulating to the next block that meets the conditional mining; If the conditions are satisfied, miner would get $95\%$ of the mining reward, then the $5\%$ remaining reward would go to the foundation for marketing.
 \end{flushleft}
 \begin{flushleft}
-    Conditioned proof of capacity, or CPoC, would lead the miners, mining pools, the foundation and other participants to engage in a positive business cycle, so that the whole system would always have a dominant temporary commercial vested beneficiary (this vested beneficiary could change with variables such as time, price and mining difficulty) to promote the whole ecosystem.
+    Conditioned Proof of Space, or CPoS, would lead the miners, mining pools, the foundation and other participants to engage in a positive business cycle, so that the whole system would always have a dominant temporary commercial vested beneficiary (this vested beneficiary could change with variables such as time, price and mining difficulty) to promote the whole ecosystem.
 \end{flushleft}
 \section{BHD Economic Model}
 \begin{flushleft}
-    BHD's economic model / consensus mechanism has been upgraded based on the Burst PoC2 (Proof of Capacity), and is called: CPoC (Conditioned-Proof of Capacity).
+    BHD's economic model / consensus mechanism has been upgraded based on the Burst PoS2 (Proof of Space), and is called: CPoS (Conditioned-Proof of Space).
 \end{flushleft}
 \begin{flushleft}
     The model will solve the problems listed below:
 \end{flushleft}
 \subsection{Economic Model Attack}
 \begin{flushleft}
-    The main purpose of miners mining is the payback period, and the benefits will inevitably lead to the sale of all mining output, resulting in market crash, lower prices and thinner profits. The CPoC mining model binds miner to its ecosystem, and uses output of mining as future input of mining, to make the entire BHD system grow automatically.
+    The main purpose of miners mining is the payback period, and the benefits will inevitably lead to the sale of all mining output, resulting in market crash, lower prices and thinner profits. The CPoS mining model binds miner to its ecosystem, and uses output of mining as future input of mining, to make the entire BHD system grow automatically.
 \end{flushleft}
 \subsection{POW High Maintenance Cost}
 \begin{flushleft}
@@ -43,27 +46,27 @@
 \end{flushleft}
 \subsection{Mining Machine Monopoly}
 \begin{flushleft}
-    The POW consensus mechanism will inevitably lead to a race for mining machines. In order to obtain higher hash power, special-purpose mining machines with higher performance will be developed inevitably, and ordinary people cannot participate in mining. The CPoC mechanism is much more accessible because of slow iteration of hard disk manufacturers and low entry barrier. In traditional businesses, the vendor is normally not a competitor to users. But in the PoW systems, the ASIC manufacturer is the biggest miner. It can be easily understood that the miner's competitor is the miner's vendor, since device suppliers take most of the profit by providing mining machines, miner is radically the risk-free arbitrage of ASIC manufacturers.
+    The POW consensus mechanism will inevitably lead to a race for mining machines. In order to obtain higher hash power, special-purpose mining machines with higher performance will be developed inevitably, and ordinary people cannot participate in mining. The CPoS mechanism is much more accessible because of slow iteration of hard disk manufacturers and low entry barrier. In traditional businesses, the vendor is normally not a competitor to users. But in the PoW systems, the ASIC manufacturer is the biggest miner. It can be easily understood that the miner's competitor is the miner's vendor, since device suppliers take most of the profit by providing mining machines, miner is radically the risk-free arbitrage of ASIC manufacturers.
 \end{flushleft}
 \subsection{Power Resources Monopoly}
 \begin{flushleft}
-    The power resources monopoly leads to no PoW ecosystem expansion, as the cost of mining exceeds the return. For those CPoC miners, the hard disks have much lower power requirement, thus the return of mining is higher. The linear hedge ratio of civil computer hardware can also be taken into consideration to ensure that miners can hedge the price fluctuation risk in the secondary market under the condition of relative safety and cost protection.
+    The power resources monopoly leads to no PoW ecosystem expansion, as the cost of mining exceeds the return. For those CPoS miners, the hard disks have much lower power requirement, thus the return of mining is higher. The linear hedge ratio of civil computer hardware can also be taken into consideration to ensure that miners can hedge the price fluctuation risk in the secondary market under the condition of relative safety and cost protection.
 \end{flushleft}
 \section{BHD Architecture and Consensus Mechanism}
 \begin{flushleft}
-    The BHD wallet is derived from Bitcoin and the consensus from Burst's PoC2.
+    The BHD wallet is derived from Bitcoin and the consensus from Burst's PoS2.
 \end{flushleft}
 \begin{flushleft}
-    Bitcoin started in Jan 2009, the stability of wallet and blockchain is widely accepted after 10 years of iterations, it is safe and reliable to implement the PoC consensus on the Bitcoin QT wallet.
+    Bitcoin started in Jan 2009, the stability of wallet and blockchain is widely accepted after 10 years of iterations, it is safe and reliable to implement the PoS consensus on the Bitcoin QT wallet.
 \end{flushleft}
 \begin{flushleft}
-    Burst Coin started in August 2014, and upgraded to PoC2 in 2018 after 4 years of iteration. Combining the advantages of Bitcoin and Burst, BHD has currently become the most reliable public chain with PoC consensus algorithm.
+    Burst Coin started in August 2014, and upgraded to PoS2 in 2018 after 4 years of iteration. Combining the advantages of Bitcoin and Burst, BHD has currently become the most reliable public chain with PoS consensus algorithm.
 \end{flushleft}
 \begin{flushleft}
     Since its launch on August 3rd 2018, BHD has grown steadily in computing power, withstood numerous tests, attacks, and cracks, and so far no major loopholes have emerged.
 \end{flushleft}
 \begin{flushleft}
-    By adopting the mature POC2 mechanism, a stable and reliable consensus mechanism is introduced to build community confidence in the BHD public chain. Since being compatible with Burst Plot files, miners can get both BHD and BurstCoin benefits, with only an additional operation.
+    By adopting the mature PoS2 mechanism, a stable and reliable consensus mechanism is introduced to build community confidence in the BHD public chain. Since being compatible with Burst Plot files, miners can get both BHD and BurstCoin benefits, with only an additional operation.
 \end{flushleft}
 \begin{flushleft}
     The BHD wallet inherits Bitcoin's excellent P2P network architecture and UTXO system, which is mature and stable.
@@ -72,16 +75,16 @@
     The wallet client could implement any latest developments from the Bitcoin community: lightning network, script upgrades, and much more. The interface standard is kept same as that of Bitcoin, allowing users to integrate easily.
 \end{flushleft}
 \begin{flushleft}
-    The CPoC ecosystem model includes mining pool, miner, crypto currency holder, wallet, exchanges and hardware vendor. The positive inner cycle and entrance of outside resources would bring expansion and development to this ecosystem, the rising price of BHD would attract more miners; more miners coming to the system will lead to further price increase.
+    The CPoS ecosystem model includes mining pool, miner, crypto currency holder, wallet, exchanges and hardware vendor. The positive inner cycle and entrance of outside resources would bring expansion and development to this ecosystem, the rising price of BHD would attract more miners; more miners coming to the system will lead to further price increase.
 \end{flushleft}
 \begin{flushleft}
     The cost of PoW is influenced by four factors: cost of dishonesty, cost of mining, level of difficulty and cost of mining devices. In the end, the PoW would become another low gross margin industry, the former windfall profits was because of insufficient scale, fluctuation of secondary market and limited device vendors.
 \end{flushleft}
 \begin{flushleft}
-    When it comes to PoC, due to the relatively low power consumption by hardware, miners can obtain other coins in the future symbiotic ecosystem of PoC almost free of charge without any risk.
+    When it comes to PoS, due to the relatively low power consumption by hardware, miners can obtain other coins in the future symbiotic ecosystem of PoS almost free of charge without any risk.
 \end{flushleft}
 \begin{flushleft}
-    The CPoC system, could give miners the choice to have most of the profits, incur cost for them to be the holder of other PoC coins, and avoid any malicious act. At the same time, the CPOC system attaches great importance to the release of distributional right and packaging right without barrier, which brings equity to the system. BHD network architecture and the participants:
+    The CPoS system, could give miners the choice to have most of the profits, incur cost for them to be the holder of other PoS coins, and avoid any malicious act. At the same time, the CPoS system attaches great importance to the release of distributional right and packaging right without barrier, which brings equity to the system. BHD network architecture and the participants:
 \end{flushleft}
 \begin{flushleft}
     \centering\textbf{BHD network architecture}
@@ -107,7 +110,7 @@
 \subsection{Plotting - Create Plot File}
 \subsubsection{Algorithms and acronyms}
 \begin{flushleft}
-    \textbf{Shabal}: Shabal is the name of the crypto/hash function used in BHD. It is a rather heavy and slow crypto compared to many other alternatives like SHA256. Thus Shabal is a good crypto for Proof of Capacity coins like BHD, because we store the precomputed hashes while it is still fast enough to do smaller live verifications. BHD uses the 256bit version of Shabal, which is also known as Shabal256.
+    \textbf{Shabal}: Shabal is the name of the crypto/hash function used in BHD. It is a rather heavy and slow crypto compared to many other alternatives like SHA256. Thus Shabal is a good crypto for Proof of Space coins like BHD, because we store the precomputed hashes while it is still fast enough to do smaller live verifications. BHD uses the 256bit version of Shabal, which is also known as Shabal256.
 \end{flushleft}
 \begin{flushleft}
     \textbf{Hash / Digest}: A hash or digest in this context is a 32Byte (256bit) long result of the Shabal256 Crypto.
@@ -147,9 +150,9 @@ Hash $\#8191$ and Hash $\#8190$. This time we pre-append Hash $\#8190$ to the la
 \begin{flushleft}
     We have now created our nonce and can store it in a plot file before we continue to the next nonce.
 \end{flushleft}
-\subsection{PoC Format}
+\subsection{PoS Format}
 \begin{flushleft}
-    The POC2 nonce format is created the same way as POC1 with a slight addition to the end of the process. To create a POC2 formatted nonce we need to shuffle the data around.
+    The PoS2 nonce format is created the same way as PoS1 with a slight addition to the end of the process. To create a PoS2 formatted nonce we need to shuffle the data around.
 \end{flushleft}
 \begin{flushleft}
     The data shuffling process:
@@ -163,7 +166,7 @@ Hash $\#8191$ and Hash $\#8190$. This time we pre-append Hash $\#8190$ to the la
         MirrorScoop = 4095 - CurrentScoop
     \end{equation}
 \end{flushleft}
-\input{graph-poc_format}
+\input{graph-PoS_format}
 \subsection{Plot Structure}
 \begin{flushleft}
     When we are mining we read nonce from one or more plot files. The miner software will open a plot file and seek the scoop locations to read the scoops data. If the plot file is unoptimized, the scoop location will be on more than one place. In the following example the miner will be seeking and reading scoop $\#403$.
@@ -180,7 +183,7 @@ Hash $\#8191$ and Hash $\#8190$. This time we pre-append Hash $\#8190$ to the la
 \subsubsection{Algorithms and acronyms}
 \begin{flushleft}
     \textbf{Shabal / Sha256 / Curve25519}\\
-    Shabal, Sha256 or Curve25519 is the name of the crypto/hash function used in BHD. Shabal is the main function in BHD. It is a rather heavy and slow crypto compared to many other alternatives like SHA256. Thus Shabal is a good crypto for Proof of Capacity coins like BHD because we store the precomputed hashes while it is still fast enough to do smaller live verifications. BHD uses the 256bit version of Shabal, which is also known as Shabal256.
+    Shabal, Sha256 or Curve25519 is the name of the crypto/hash function used in BHD. Shabal is the main function in BHD. It is a rather heavy and slow crypto compared to many other alternatives like SHA256. Thus Shabal is a good crypto for Proof of Space coins like BHD because we store the precomputed hashes while it is still fast enough to do smaller live verifications. BHD uses the 256bit version of Shabal, which is also known as Shabal256.
 \end{flushleft}
 \begin{flushleft}
     \textbf{Deadline}\\
@@ -262,7 +265,7 @@ The wallet has now received the information submitted by the miner, and will now
 \section{BHD Technical Characteristics}
 \begin{tabular}{ |p{12cm}| }
     \hline
-    POC2 consensus mechanism\\[5pt]
+    PoS2 consensus mechanism\\[5pt]
     \hline
     5-minute block generation time, the transaction speed is faster\\[5pt]
     \hline

@@ -1,24 +1,28 @@
 \chapter{Update to Chia consensus}
 \begin{flushleft}
-    BHD's consensus has been upgraded. Those plots were made from old consensus are no longer worked, miners need to update there plots to new consensus with new algorithms. BHD wallet client, miner program should be updated as well.
+    In the new version of BHD.
+    \begin{enumerate}
+        \item Consensus Chia's PoST
+        \item Economic model
+    \end{enumerate}
 \end{flushleft}
 \section{Introduction}
 \begin{flushleft}
-    Decenterialized consensus algorithms require to consume scarce resources, such as computing power, staked money and storage space. BHD is continuing to use storage space to secure the network. Timelord has been added to provide a reliable cryptographic, it is able to proof the real time has passed.
+    Decenterialized consensus algorithms require to consume scarce resources, such as computing power, staked money and storage space. BHD is continuing to use storage space to secure the network. Timelord has been added to provide a reliable cryptographic. By adding timelord to increase the security of entired network.
 \end{flushleft}
 \begin{flushleft}
-    BHD cryptocurrency system combines Proof of Capacity (PoC) and Time (PoT). All required proofs are submitted to block-chain and can be verified by everyone. All random-looking data are stored on user's local storage devices. Miners need to find the correct answer by searching those random-looking data to win the lottery. No funds, special hardware, registration or permission is required to join except a hard driver and internet connection.
+    BHD cryptocurrency system combines Proof of Space (PoS) and Time (PoT). All required proofs are submitted to block-chain and can be easily verified. Miners need to find the correct answer by searching those random-looking data to win the lottery. No funds, special hardware, registration or permission is required to join except a hard driver and internet connection.
 \end{flushleft}
-\section{Proof of Capacity}
+\section{Proof of Space}
 \begin{flushleft}
-    A Proof of Capacity protocol is one in which:
+    A Proof of Space protocol is one in which:
 \end{flushleft}
 \begin{itemize}
     \item A Verifier can send a challenge to a Prover.
     \item The Prover can demonstrate to the Verifier that the Prover is reserving a specific amount of storage space at that precise time.
 \end{itemize}
 \begin{flushleft}
-    The Proof of Capacity protocol has three components: plotting, proving/farming, and verifying. For more info, see Chia's Details of the chiapos specification, and reference implementation by visiting https://chia.net.
+    The Proof of Space protocol has three components: plotting, proving/farming, and verifying. For more info, see Chia's Details of the chiapos specification, and reference implementation by visiting https://chia.net.
 \end{flushleft}
 \input{graph-pos_prover_verifier}
 \subsection{Plotting}
@@ -29,10 +33,10 @@
     As of Chia 1.2.7, a k32 plot can be created in around five minutes with a high-end machine with 400 GiB of RAM, or six hours with a normal commodity machine, or 12 hours with a slow machine using one CPU core and a few GB of RAM. Opportunities still remain for huge speedups. Furthermore, each plot only needs to be created once; a miner can farm with the same plots for many years.
 \end{flushleft}
 \begin{flushleft}
-    Plot sizes are determined by a k parameter, where $space = 780 * k * 2^{k - 10}$, with a minimum k of 32 (101.4 GiB). The Proof of Capacity construction is based on Beyond Hellman, but it is nested six times (thereby creating seven tables), and it contains other heuristics to make it practical.
+    Plot sizes are determined by a k parameter, where $space = 780 * k * 2^{k - 10}$, with a minimum k of 32 (101.4 GiB). The Proof of Space construction is based on Beyond Hellman, but it is nested six times (thereby creating seven tables), and it contains other heuristics to make it practical.
 \end{flushleft}
 \begin{flushleft}
-    Each of the seven tables in a plot is filled with random-looking data that cannot be compressed. Each table has $2^k$ entries. Each entry in table i contains two pointers to table i-1 (the previous table). Finally, each table-1 entry contains a pair of integers between 0 and $2^k$, called "x-values." A Proof of Capacity is a collection of 64 x-values that have a certain mathematical relationship. The actual on-disk structure and the algorithm required to generate it are quite complicated, but this is the general idea.
+    Each of the seven tables in a plot is filled with random-looking data that cannot be compressed. Each table has $2^k$ entries. Each entry in table i contains two pointers to table i-1 (the previous table). Finally, each table-1 entry contains a pair of integers between 0 and $2^k$, called "x-values." A Proof of Space is a collection of 64 x-values that have a certain mathematical relationship. The actual on-disk structure and the algorithm required to generate it are quite complicated, but this is the general idea.
 \end{flushleft}
 \begin{flushleft}
     Once the Prover has initialized 101.4 GiB, they are ready to receive a challenge and create a proof. One attractive property of this scheme is that it is non-interactive: no registration or online connection is required to create a plot using the original plot format. Nothing hits the blockchain until a reward is won, similar to PoW. For pool portable plots, a miner only needs a few mojos to create a plot NFT before plotting and then everything has the same characteristics from there.
@@ -42,7 +46,7 @@
     Farming is the process by which a miner receives a sequence of 256-bit challenges to prove that they have legitimately put aside a defined amount of storage. In response to each challenge, the miner checks their plots, generates a proof, and submits any winning proofs to the network for verification.
 \end{flushleft}
 \begin{flushleft}
-    For each eligible plot (explained later), a miner uses the following procedure to generate a full Proof of Capacity. Keep in mind that a plot consists of 7 tables (T1-T7) of approximately the same size, as well as 3 checkpoint tables (C1-C3), which are much smaller:
+    For each eligible plot (explained later), a miner uses the following procedure to generate a full Proof of Space. Keep in mind that a plot consists of 7 tables (T1-T7) of approximately the same size, as well as 3 checkpoint tables (C1-C3), which are much smaller:
 \end{flushleft}
 \begin{enumerate}
     \item The miner receives a challenge from the block-chain
@@ -55,7 +59,7 @@
     \item The T6 index contains one line point with two back pointers to T5, four to T4, eight to T3, sixteen to T2 and thirty-two to T1. Each back pointer requires 1 read, so a total of 64 disk reads (1 index from T7, 63 back pointers) are performed to fetch the whole tree of 64 x-values.
 \end{enumerate}
 \begin{flushleft}
-    Since most proofs generated by this process are not good enough to be submitted to the network for verification, we can optimize this process by only checking one branch of the tree. This branch will return two of the 64 x-values. The position of the x-values will always be consecutive and will depend on current challenge (eg x0 and x1... or x34 and x35). We hash these x-values to produce a random 256-bit ``quality string.'' This is combined with the difficulty and the plot size to generate the required\_iterations. If the required\_iterations is less than every required\_iterations those are found from local storage or internet, the proof can be included in the blockchain. At this point, we look up the whole Proof of Capacity.
+    Since most proofs generated by this process are not good enough to be submitted to the network for verification, we can optimize this process by only checking one branch of the tree. This branch will return two of the 64 x-values. The position of the x-values will always be consecutive and will depend on current challenge (eg x0 and x1... or x34 and x35). We hash these x-values to produce a random 256-bit ``quality string.'' This is combined with the difficulty and the plot size to generate the required\_iterations. If the required\_iterations is less than every required\_iterations those are found from local storage or internet, the proof can be included in the blockchain. At this point, we look up the whole Proof of Space.
 \end{flushleft}
 \begin{flushleft}
     By only looking up one branch to determine the quality string, we can rule out most proofs. This optimization requires only around 7-9 disk seeks and reads, or about 70-90 ms on a slow hard drive.
@@ -72,14 +76,14 @@
     The plot filter effectively reduces the amount of resources required for farming by 512x -- each plot only requires a few disk reads every few minutes. A miner with 1 PiB of storage (10,000 plots) will only have an average of 20 plots that pass the filter for each challenge. Even if these plots all are stored on slow HDDs, and connected to a single Raspberry Pi, the average time required to respond to each challenge will be less than two seconds. This is well within the limits to avoid missing out on any challenges.
 \end{flushleft}
 \begin{flushleft}
-    Each plot file has its own unique private key called a plot key. The plot ID is generated by hashing the plot public key, the miner public key, and either the pool public key (for OG plots) or the pool contract puzzle hash (for pooled plots). The requirements for signing a Proof of Capacity depend on the type of plots being used. See the Plot Public Keys page for details on the keys used for plot construction.
+    Each plot file has its own unique private key called a plot key. The plot ID is generated by hashing the plot public key, the miner public key, and either the pool public key (for OG plots) or the pool contract puzzle hash (for pooled plots). The requirements for signing a Proof of Space depend on the type of plots being used. See the Plot Public Keys page for details on the keys used for plot construction.
 \end{flushleft}
 \begin{flushleft}
     In practice, the plot key is a 2/2 BLS aggregate public key between a local key stored in the plot and a key stored by the miner software. For security and efficiency, a miner may run on one server using this key and signature scheme. This server can then be connected to one or more harvester machines that store the actual plots. Farming requires the miner key and the local key, but it does not require the pool key, since the pool’s signature can be cached and reused for many blocks.
 \end{flushleft}
 \subsection{Verifying}
 \begin{flushleft}
-    After the miner has successfully created a Proof of Capacity, the proof can be verified by performing a few hashes and making comparisons between the x-values in the proof. Recall that the proof is a list of 64 x-values, where each x-value is k bits long. For a k32 this is 256 bytes (2048 bits), and is therefore very compact. Verification is very fast, but not quite fast enough to be verified in Solidity on Ethereum (something that would enable trustless transfers between chains), since this verification requires blake3 and chacha8 operations.
+    After the miner has successfully created a Proof of Space, the proof can be verified by performing a few hashes and making comparisons between the x-values in the proof. Recall that the proof is a list of 64 x-values, where each x-value is k bits long. For a k32 this is 256 bytes (2048 bits), and is therefore very compact. Verification is very fast, but not quite fast enough to be verified in Solidity on Ethereum (something that would enable trustless transfers between chains), since this verification requires blake3 and chacha8 operations.
 \end{flushleft}
 \section{Proof of time (VDFs)}
 \begin{flushleft}
@@ -116,7 +120,7 @@
     As a recap, VDFs take in an input, called a challenge, and produce an output, together with a proof that certifies that the function was evaluated correctly.
 \end{flushleft}
 \begin{flushleft}
-    A value, in this context, can be thought of as a block with a Proof of Capacity. The value is combined with an output of a VDF, to generate a new value, which is used as the input/challenge for the next VDF. This is known as an infusion of a value into a VDF.
+    A value, in this context, can be thought of as a block with a Proof of Space. The value is combined with an output of a VDF, to generate a new value, which is used as the input/challenge for the next VDF. This is known as an infusion of a value into a VDF.
 \end{flushleft}
 \begin{flushleft}
     Therefore, we are chaining VDFs, but committing to a new value in between. This is used so that we have a linear progression of blocks, alternating proofs of space with proofs of time.
@@ -138,38 +142,38 @@
 \end{tabular}
 \subsection{Challenge}
 \begin{flushleft}
-    The BHD consensus algorithm relies on timelords running VDFs for each block, which are adjusted periodically (and automatically) to take around 2 minutes. During every block, challenges are generated according previous block, and a sort of mini lottery starts, where farmers check their plots for proofs of space. When farmers find a Proof of Capacity that qualifies, they broadcast it to the network after the VDF calculation with required\_iterations is finished.
+    The BHD consensus algorithm relies on timelords running VDFs for each block, which are adjusted periodically (and automatically) to take around 2 minutes. During every block, challenges are generated according previous block, and a sort of mini lottery starts, where farmers check their plots for proofs of space. When farmers find a Proof of Space that qualifies, they broadcast it to the network after the VDF calculation with required\_iterations is finished.
 \end{flushleft}
 \begin{flushleft}
-    A challenge is always a 256-bit hash. It is released when a new block is added to blockchain it is changed on every block. The challenge services both PoC and VDF for every block.
+    A challenge is always a 256-bit hash. It is released when a new block has been added to blockchain. The challenge services both PoS and VDF.
 \end{flushleft}
 \subsection{Quality and ``required\_iterations''}
 \begin{flushleft}
-    There are more than 1 proofs can be found from miners plots for every challenge. But there is only 1 proof should be included in the new block. ``required\_iterations'' is the way to identify the quality of a proof and it is calculated from the proof itself. More smaller of the number means better quality it is. The block contains with the proof with better quality will be released earlier than others.
+    There are more than 1 proofs can be found from miners plots for every challenge. But there is only 1 proof can be included in the new block. ``required\_iterations'' is the way to identify the quality of a proof and it is calculated from the proof itself. More smaller of the number means the better quality it is. The block contains with the proof with better quality will be released earlier than others.
 \end{flushleft}
 \subsection{Blocks}
 \begin{flushleft}
-    BHD will release a new block every 2 minutes. The basic information are assembled into the block such as transactions, Proof of Capacity, VDF proofs and difficulty.
+    BHD will release a new block every 2 minutes. The basic information are assembled into the block such as transactions, Proof of Space, VDF proofs and difficulty.
 \end{flushleft}
 \subsubsection{Block generation steps}
 \begin{enumerate}
-    \item Find Proof of Capacity from plots
+    \item Find Proof of Space from plots
     \item Calculate ``required\_iterations'' according the proof
-    \item Wait and retrieve VDF proof from timelord, the iterations must satisify the requirement
+    \item Wait and retrieve VDF proof from timelord
     \item Create new block and pack with all proofs and TXs etc
 \end{enumerate}
 \input{graph-block_generation}
 \subsubsection{Void block}
 \begin{flushleft}
-    There is a very rare situation, the proof of space of current challenge cannot be found from the entired network. The consensus will add an empty duration without a PoS called void block. After the proof of VDF is calculated, and then mix a new challenge to find proof. The void block will be included into the new block.
+    There is a very rare situation, the proof of space cannot be found from the entired network. The consensus will add an empty duration without a PoS called void block. After the proof of VDF is calculated, miner will be asked to mix a new challenge to find a Proof of Space. The void block will be included into the new block.
 \end{flushleft}
 \subsection{Difficulty}
 \begin{flushleft}
-    Difficulty is the value represents the weight of current block. According to current netspace and VDF speed, difficulty will be adjusted automatically. By difficulty adjusting, the time to release a new block will be around 2 minutes. The difficulty adjusts automatically to target each block winning proofs for the entire network.
+    Difficulty is the value represents how good is the block. According to current netspace and VDF speed, difficulty will be adjusted on every block. The time to release a new block will be around 2 minutes.
 \end{flushleft}
 \subsubsection{Difficulty adjustment}
 \begin{flushleft}
-    Adjustment equation of the difficulty is trying to find the new weight of the next block by chaning the value of difficulty.
+    Adjustment equation of the difficulty is trying to find the new weight of the next block by fixing the value of difficulty.
 \end{flushleft}
 \begin{equation}
     NewDifficulty = \frac{Weight_{current} - Weight_{previous}}{Time_{CurrentBlock} * Time_{PreferBlock}}
@@ -183,9 +187,9 @@
 \end{equation}
 \section{Block validation}
 \subsection{Block format}
-\subsubsection{Proof of capacity}
+\subsubsection{Proof of Space}
 \begin{flushleft}
-    To verify the proof of capacity, we need to obtain ``Plot-Id''. ``Plot-Id'' can be calculated from ``Local pk'', ``Farmer pk'', ``Pool pk'' or ``Contract puzzle hash''.
+    To verify the Proof of Space, we need to obtain ``Plot-Id''. ``Plot-Id'' can be calculated from ``Local pk'', ``Farmer pk'', ``Pool pk'' or ``Contract puzzle hash''.
 \end{flushleft}
 \begin{tabular}{ |p{3cm}|p{3cm}|p{6cm}| }
     \hline
@@ -287,7 +291,7 @@
 \end{equation}
 \subsubsection{Adjustment of reward ratio}
 \begin{flushleft}
-    When the amount of pledge is not enough for a miner to claim all rewards from a new block, miners will only get $15\%$ of the block rewards, the rest $85\%$ will be locked on the chain until the miner who has enought amount of pledge to claim all rewards.
+    When the amount of pledge is not enough for a miner to claim all rewards from a new block, miners will only get $15\%$ of the block rewards, the rest $85\%$ will be locked in the chain until the miner who has enough amount of pledge to claim all rewards.
 \end{flushleft}
 \subsubsection{Ratio of pledge}
 \begin{flushleft}
@@ -306,4 +310,3 @@
     \rowcolor{lightgray!30} 3 years & $100\%$ \\[5pt]
     \hline
 \end{tabular}
-
