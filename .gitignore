@@ -12,3 +12,4 @@ graph-*.tex
 
 # ide related folder
 .vscode
+svg-inkscape

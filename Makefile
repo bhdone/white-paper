@@ -11,10 +11,10 @@ $(GEN_TEX_FILES): %.tex: utils/%-generator.js
 	node $< > $@
 
 $(MAINNAME).pdf: $(MAINNAME).toc $(TEX_FILES) $(GEN_TEX_FILES) $(EX_JS_FILES)
-	xelatex $(MAINNAME).tex
+	xelatex --shell-escape $(MAINNAME).tex
 
 $(MAINNAME).toc: $(TEX_FILES) $(GEN_TEX_FILES) $(EX_JS_FILES)
-	xelatex $(MAINNAME).tex
+	xelatex --shell-escape $(MAINNAME).tex
 
 .PHONY: clean
 
