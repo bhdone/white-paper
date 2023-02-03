@@ -1,6 +1,5 @@
 const { label, labelRect, rect, fillRect, line, circle, fillCircle, fillArc, arrowLine } = require('./tikzpicture.js');
 
-
 exports.hashPack = (x, y, scoopNum, hashList) => {
     const HASH_WIDTH = 1;
     const HASH_HEIGHT = 0.6;
@@ -129,6 +128,29 @@ exports.localStorage = (x, y, n, color) => {
         return {
             script,
             props: { x, y, n, width: props.width, height: n * props.height },
+        }
+    }
+}
+
+exports.computer = (x, y, color) => {
+    const WIDTH = 1;
+    const HEIGHT= 1.9;
+    const OFFSET = 0.6;
+    const MARGIN = 0.15;
+    const LINE_HEIGHT = 0.08;
+    return () => {
+        let script = '';
+        script += fillRect(x - WIDTH / 2, y - HEIGHT / 2 + OFFSET, WIDTH, HEIGHT, 'lightgray!30', true)().script;
+        script += rect(x - WIDTH / 2, y - HEIGHT / 2 + OFFSET, WIDTH, HEIGHT, 'black', true)().script;
+        script += circle(x, y, 0.04, color)().script;
+        const X = x + MARGIN - WIDTH / 2;
+        const X2 = X + WIDTH - MARGIN * 2;
+        for (let i = 2; i < 7; ++i) {
+            script += line(X, (i + 1) * LINE_HEIGHT * 2 + y, X2, (i + 1) * LINE_HEIGHT * 2 + y, color)().script;
+        }
+        return {
+            script,
+            props: { x, y, color },
         }
     }
 }
