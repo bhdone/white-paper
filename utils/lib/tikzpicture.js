@@ -36,16 +36,16 @@ exports.label = (x, y, title, color, anchor) => {
     }
 }
 
-exports.labelRect = (x, y, width, height, title, color, bgColor) => {
+exports.labelRect = (x, y, width, height, title, color, bgColor, round) => {
     const MARGIN = 0.1;
     return () => {
         let script = '';
         if (bgColor) {
-            script += exports.fillRect(x, y, width, height, bgColor, true)().script;
+            script += exports.fillRect(x, y, width, height, bgColor, round)().script;
         } else {
-            script += exports.rect(x, y, width, height, color, true)().script;
+            script += exports.rect(x, y, width, height, color, round)().script;
         }
-        script += exports.label(x, y, title, color, 'south west')().script
+        script += exports.label(x + width / 2, y + height / 2, title, color)().script
         return {
             script,
             props: {
@@ -95,11 +95,14 @@ exports.fillRect = (x, y, width, height, color, round) => {
     }
 }
 
-exports.line = (x, y, x2, y2, color) => {
+exports.line = (x, y, x2, y2, color, dotted) => {
     return () => {
         let tag = '';
         if (color) {
             tag = color;
+        }
+        if (dotted) {
+            tag = propAdd(tag, 'dotted');
         }
         return {
             script: `\\draw[${tag}] (${x},${y}) -- (${x2},${y2});`,
