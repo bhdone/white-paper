@@ -134,7 +134,7 @@
     \rowcolor{lightgray} \textbf{Parameter} & \textbf{BTC} & \textbf{BHD} & \textbf{BHD2} \\[5pt]
     \hline
     \textbf{Total Supply} & 21,000,000 & 21,000,000 & 63,000,000 \\[5pt]
-    \rowcolor{lightgray!30} \textbf{Block Time} & 10mins & 3mins & 2mins \\[5pt]
+    \rowcolor{lightgray!30} \textbf{Block Time} & 10mins & 3mins & 3mins \\[5pt]
     \textbf{Block Size} & 1M & 2M & 2M \\[5pt]
     \rowcolor{lightgray!30} \textbf{Halving Cycle} & every 4 years & every 4 years & every 4 years \\[5pt]
     \textbf{Initial Block Reward} & 50 BTC & 15 BHD & 30 BHD \\[5pt]
@@ -142,7 +142,7 @@
 \end{tabular}
 \subsection{Challenge}
 \begin{flushleft}
-    The BHD consensus algorithm relies on timelords running VDFs for each block, which are adjusted periodically (and automatically) to take around 2 minutes. During every block, challenges are generated according previous block, and a sort of mini lottery starts, where farmers check their plots for proofs of space. When farmers find a Proof of Space that qualifies, they broadcast it to the network after the VDF calculation with required\_iterations is finished.
+    The BHD consensus algorithm relies on timelords running VDFs for each block, which are adjusted periodically (and automatically) to take around 3 minutes. During every block, challenges are generated according previous block, and a sort of mini lottery starts, where farmers check their plots for proofs of space. When farmers find a Proof of Space that qualifies, they broadcast it to the network after the VDF calculation with required\_iterations is finished.
 \end{flushleft}
 \begin{flushleft}
     A challenge is always a 256-bit hash. It is released when a new block has been added to blockchain. The challenge services both PoS and VDF.
@@ -167,7 +167,7 @@
 \end{flushleft}
 \subsection{Blocks}
 \begin{flushleft}
-    BHD releases block every 2 minutes. The basic information are assembled into the block such as transactions, Proof of Space, VDF proofs and difficulty.
+    BHD releases block every 3 minutes. The basic information are assembled into the block such as transactions, Proof of Space, VDF proofs and difficulty.
 \end{flushleft}
 \subsubsection{Block generation steps}
 \begin{enumerate}
@@ -183,11 +183,11 @@
 \end{flushleft}
 \subsection{Difficulty}
 \begin{flushleft}
-    Difficulty is the value represents how good is the block. According to current netspace and VDF speed, difficulty will be adjusted on every block. The time to release a new block will be around 2 minutes.
+    Difficulty is the value represents how good is the block. According to current netspace and VDF speed, difficulty will be adjusted on every block. The time to release a new block will be around 3 minutes.
 \end{flushleft}
 \subsubsection{Difficulty adjustment}
 \begin{flushleft}
-    The equation of the difficulty adjustment is trying to calculate the new weight of next block. Adjusting difficulty also affects the number of iterations, this is also the way how the new block releases after 2 minutes.
+    The equation of the difficulty adjustment is trying to calculate the new weight of next block. Adjusting difficulty also affects the number of iterations, this is also the way how the new block releases after 3 minutes.
 \end{flushleft}
 \begin{equation}
     NewDifficulty = \frac{Weight_{current} - Weight_{previous}}{Time_{CurrentBlock} * Time_{PreferBlock}}
