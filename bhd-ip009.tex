@@ -255,19 +255,18 @@
     The following steps list all required checks to ensure the validity of a block.
 \end{flushleft}
 \begin{enumerate}
-    \item Check previous block
-    \item Check duration of VDF
-    \item Check number of iterations of VDF
-    \item Check void blocks
-    \item Check difficulty
+    \item Check previous block - To ensure the challenge is correct and generated from the previous block
+    \item Check duration of VDF - The duration between blocks must has a reasonable value
+    \item Check number of iterations of VDF - The number of iterations must satisify the requirement
+    \item Check void blocks - Ensure the void blocks are valid and the challenge is mixed correctly
+    \item Check difficulty - The difficulty can be calculated from the previous block
     \item Check challenge depends on previous block and void blocks
     \item Check the quality of the proof
-    \item Check the number of iterations
-    \item Check the proof of space
-    \item Check the proof of VDF
+    \item Verify the proof of space
+    \item Verify the proof of VDF
     \item Verify farmer's signature
-    \item Check coinbase
-    \item Check validity of pledges
+    \item Check distributed amount by coinbase
+    \item Check validity of pledges TXs
 \end{enumerate}
 \section{Economic model}
 \begin{flushleft}
@@ -325,11 +324,14 @@
     We assume that there is a miner with a netspace of $15_{PB}$. Assume that the current netspace of the entire network is $200_{PB}$ and the total supplied amount of currency is $10,000_{BHD}$. Thus, according to the formula, the total amount of currency that needs to be pledged per PB is $\frac{10,000}{200}=50$. The miner in order to obtain $100\%$ mining rewards, a total of $750_{BHD}$ needs to be pledged to the chain.
 \end{flushleft}
 \begin{flushleft}
-    The miner can choose one of the following pledge plans:
+    The miner can choose one of the following pledge plans to get $100\%$ rewards:
     \begin{enumerate}
         \item Deposit $9375_{BHD}$ to the chain with period ``Current Deposit''
         \item Deposit $3750_{BHD}$ to the chain with period ``1 year''
         \item Deposit $1500_{BHD}$ to the chain with period ``2 years''
         \item Deposit $750_{BHD}$ to the chain with period ``3 years''
     \end{enumerate}
+\end{flushleft}
+\begin{flushleft}
+    Miner will receive $15\%$ rewards when the amount of pledge is less than $750_{BHD}$. The pledge amount also increases when the total supply is increased or the miner its netspace is increased.
 \end{flushleft}
