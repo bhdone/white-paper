@@ -36,15 +36,30 @@ exports.label = (x, y, title, color, anchor) => {
     }
 }
 
-exports.rect = (x, y, width, height, color) => {
+exports.labelRect = (x, y, width, height, title, color) => {
+    return () => {
+        let script = '';
+        script += exports.rect(x, y, width, height, color, true)().script;
+        script += exports.label(x, y, title, color, 'south west')().script
+        return {
+            script,
+            props: { x, y, width, height, title, color }
+        }
+    }
+}
+
+exports.rect = (x, y, width, height, color, round) => {
     return () => {
         let tag = '';
         if (color) {
-            tag = color;
+            tag = propAdd(tag, color);
+        }
+        if (round) {
+            tag = propAdd(tag, 'rounded corners');
         }
         return {
             script: `\\draw[${tag}] (${x},${y}) rectangle (${x + width},${y + height});`,
-            props: { x, y, width, height, color },
+            props: { x, y, width, height, color, round },
         }
     }
 }
