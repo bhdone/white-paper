@@ -6,3 +6,6 @@
 *.pdf
 *.toc
 *.synctex.gz
+
+# auto generated files
+graph-mining_pool_hash_power.tex
