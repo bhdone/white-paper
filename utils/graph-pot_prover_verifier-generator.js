@@ -22,7 +22,7 @@ add(titleLine(START_X, 0, START_X + LEN, 0, '2. fast computer', DESC_COLOR));
 add(titleLine(START_X, LINE_2ND_Y, START_X + LEN, LINE_2ND_Y, '3. get proof', DESC_COLOR, true));
 
 add(label(p1Props.x, p1Props.y - 2, '5. verify proof', DESC_COLOR));
-add(computer(p2Props.x + 5, -1.1, 'black'));
+add(computer(p2Props.x + 5, -1, 'black'));
 
 const MARGIN = 0.5;
 const TITLE_MARGIN = 0.1;
