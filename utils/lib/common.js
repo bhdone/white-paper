@@ -1,4 +1,4 @@
-const { label, labelRect, rect, fillRect } = require('./tikzpicture.js');
+const { label, labelRect, rect, fillRect, line, circle, fillCircle, fillArc, arrowLine } = require('./tikzpicture.js');
 
 
 exports.hashPack = (x, y, scoopNum, hashList) => {
@@ -58,6 +58,77 @@ exports.hashFunc = (x, y, insideShapes, hashTitle) => {
                 hashTitle: { x: x + WIDTH + 0.1, y: y + ROW_HEIGHT * insideShapes.length + MARGIN_WIDTH + HASH_HEIGHT / 2 },
                 firstHash: { x, y: y + ITEM_HEIGHT / 2 + MARGIN_WIDTH },
             },
+        }
+    }
+}
+
+exports.people = (x, y, name, color, fillColor, bkColor) => {
+    const R = 0.5;
+    const R2 = 0.4;
+    const R3 = 0.35;
+    const R_BODY = 0.8;
+    const BODY_OFFSET = -1;
+    const TITLE_OFFSET_Y = - 0.3;
+    return () => {
+        let script = '';
+        script += fillArc(0, 180, R_BODY, { x: x + R_BODY, y: y + BODY_OFFSET }, fillColor)().script;
+        script += fillCircle(x, y, R, bkColor)().script;
+        script += fillCircle(x, y, R2, 'black!50')().script;
+        script += fillCircle(x, y, R3, color)().script;
+        script += label(x, y + BODY_OFFSET, name, 'black', 'north')().script;
+        return {
+            script,
+            props: {
+                x, y, name, color, fillColor, bkColor,
+                top: { x, y: y + R },
+                bottom: { x, y: y + BODY_OFFSET + TITLE_OFFSET_Y },
+                left: { x: x - R_BODY, y },
+                right: { x: x + R_BODY, y },
+            },
+        }
+    }
+}
+
+exports.titleLine = (x, y, x2, y2, title, color, reverse) => {
+    return () => {
+        let script = '';
+        script += arrowLine(x, y, x2, y2, color, reverse)().script;
+        script += label((x2 - x) / 2 + x, y, title, color, 'south')().script;
+        return {
+            script,
+            props: { x, y, x2, y2, title, color, reverse },
+        }
+    }
+}
+
+exports.disk = (x, y, color) => {
+    const WIDTH = 1.3;
+    const HEIGHT = 0.25;
+    const MARGIN = 0.1;
+    const MARGIN_DOT = 0.2;
+    const DOT_R = 0.04;
+    return () => {
+        let script = '';
+        script += rect(x, y, WIDTH, HEIGHT, color, true)().script;
+        script += circle(x + WIDTH - MARGIN_DOT, y + HEIGHT / 2, DOT_R, color)().script;
+        script += line(x + MARGIN, y + HEIGHT / 2, x + WIDTH - MARGIN * 2 - MARGIN_DOT, y + HEIGHT / 2)().script;
+        return {
+            script,
+            props: { x, y, width: WIDTH, height: HEIGHT },
+        }
+    }
+}
+
+exports.localStorage = (x, y, n, color) => {
+    const MARGIN = 0.03;
+    return () => {
+        let { script, props } = exports.disk(x, y, color)();
+        for (let i = 1; i < n; ++i) {
+            script += exports.disk(x, y + i * (props.height + MARGIN), color)().script;
+        }
+        return {
+            script,
+            props: { x, y, n, width: props.width, height: n * props.height },
         }
     }
 }

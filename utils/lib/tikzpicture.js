@@ -126,15 +126,48 @@ exports.arrowLine = (x, y, x2, y2, color, reverse) => {
     }
 }
 
-exports.circle = (x, y, r, color) => {
+exports.circle = (x, y, r, color, lineWidth) => {
     return () => {
         let tag = '';
         if (color) {
             tag = propAdd(tag, color);
         }
+        if (lineWidth) {
+            tag = propAdd(tag, { name: 'line width', value: lineWidth });
+        }
         return {
             script: `\\draw[${tag}] (${x},${y}) circle (${r});`,
             props: { x, y, r },
+        }
+    }
+}
+
+exports.fillCircle = (x, y, r, color, lineWidth) => {
+    return () => {
+        let tag = '';
+        if (color) {
+            tag = propAdd(tag, color);
+        }
+        if (lineWidth) {
+            tag = propAdd(tag, { name: 'line width', value: lineWidth });
+        }
+        return {
+            script: `\\filldraw[${tag}] (${x},${y}) circle (${r});`,
+            props: { x, y, r },
+        }
+    }
+}
+
+exports.fillArc = (from, to, radius, pt, color) => {
+    return () => {
+        let tag = '';
+        if (color) {
+            tag = propAdd(tag, color);
+        }
+        let script = `\\filldraw[${tag}] (${pt.x},${pt.y}) arc (${from}:${to}:${radius});`;
+        return {
+            script,
+            props: { from, to, radius, center: pt, color },
         }
     }
 }
