@@ -125,15 +125,15 @@
 \begin{flushleft}
     After BHD blockchain hard-fork, some of the properties have been changed according the consensus algorithms.
 \end{flushleft}
-\begin{tabular}{ |p{4cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}| }
+\begin{tabular}{ p{4cm} p{2.5cm} p{2.5cm} p{2.5cm}  }
     \hline
     \rowcolor{lightgray} \textbf{Parameter} & \textbf{BTC} & \textbf{BHD} & \textbf{BHD2} \\[5pt]
     \hline
-    Total Supply & 21,000,000 & 21,000,000 & 42,000,000 \\[5pt]
-    Block Time & 10mins & 3mins & 2mins \\[5pt]
-    Block Size & 1M & 2M & 2M \\[5pt]
-    Halving Cycle & every 4 years & every 4 years & every 4 years \\[5pt]
-    Initial Block Reward & 50 BTC & 15 BHD & 30 BHD \\[5pt]
+    \textbf{Total Supply} & 21,000,000 & 21,000,000 & 42,000,000 \\[5pt]
+    \rowcolor{lightgray!30} \textbf{Block Time} & 10mins & 3mins & 2mins \\[5pt]
+    \textbf{Block Size} & 1M & 2M & 2M \\[5pt]
+    \rowcolor{lightgray!30} \textbf{Halving Cycle} & every 4 years & every 4 years & every 4 years \\[5pt]
+    \textbf{Initial Block Reward} & 50 BTC & 15 BHD & 30 BHD \\[5pt]
     \hline
 \end{tabular}
 \subsection{Challenge}
@@ -143,7 +143,7 @@
 \begin{flushleft}
     A challenge is always a 256-bit hash. It is released when a new block is added to blockchain it is changed on every block. The challenge services both PoC and VDF for every block.
 \end{flushleft}
-\subsection{Quality and required\_iterations}
+\subsection{Quality and ``required\_iterations''}
 \begin{flushleft}
     There are more than 1 proofs can be found from miners plots for every challenge. But there is only 1 proof should be included in the new block. ``required\_iterations'' is the way to identify the quality of a proof and it is calculated from the proof itself. More smaller of the number means better quality it is. The block contains with the proof with better quality will be released earlier than others.
 \end{flushleft}
@@ -298,12 +298,12 @@
 \end{flushleft}
 \begin{tabular}{ |p{5cm}|p{3cm}| }
     \hline
-    \textbf{Period} & \textbf{Ratio} \\[5pt]
+    \rowcolor{lightgray}\textbf{Period} & \textbf{Ratio} \\[5pt]
     \hline
-    \rowcolor{lightgray!30} Current Deposit & $8\%$ \\[5pt]
-    1 year & $20\%$ \\[5pt]
-    \rowcolor{lightgray!30} 2 years & $50\%$ \\[5pt]
-    3 years & $100\%$ \\[5pt]
+    Current Deposit & $8\%$ \\[5pt]
+    \rowcolor{lightgray!30} 1 year & $20\%$ \\[5pt]
+    2 years & $50\%$ \\[5pt]
+    \rowcolor{lightgray!30} 3 years & $100\%$ \\[5pt]
     \hline
 \end{tabular}
 
