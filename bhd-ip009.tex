@@ -159,6 +159,10 @@
     \item Create new block and pack with all proofs and TXs etc
 \end{enumerate}
 \input{graph-block_generation}
+\subsubsection{Void block}
+\begin{flushleft}
+    There is a very rare situation, the proof of space of current challenge cannot be found from the entired network. The consensus will add an empty duration without a PoS called void block. After the proof of VDF is calculated, and then mix a new challenge to find proof. The void block will be included into the new block.
+\end{flushleft}
 \subsection{Difficulty}
 \begin{flushleft}
     Difficulty is the value represents the weight of current block. According to current netspace and VDF speed, difficulty will be adjusted automatically. By difficulty adjusting, the time to release a new block will be around 2 minutes. The difficulty adjusts automatically to target each block winning proofs for the entire network.
@@ -177,6 +181,83 @@
 \begin{equation}
     NetSpace = \frac{Difficulty_{current}}{Iters_{current}}*{DifficultyConstantFactor}*2^{FilterBits}
 \end{equation}
+\section{Block validation}
+\subsection{Block format}
+\subsubsection{Proof of capacity}
+\begin{flushleft}
+    To verify the proof of capacity, we need to obtain ``Plot-Id''. ``Plot-Id'' can be calculated from ``Local pk'', ``Farmer pk'', ``Pool pk'' or ``Contract puzzle hash''.
+\end{flushleft}
+\begin{tabular}{ |p{3cm}|p{3cm}|p{6cm}| }
+    \hline
+    \rowcolor{lightgray}\textbf{Name} & \textbf{Data type} & \textbf{Description} \\[5pt]
+    \hline
+    Pool pk or Hash & 48 or 32 bytes & According Chia's consensus.\\[5pt]
+    \rowcolor{lightgray!30} Pk type & 1-byte & The type of the public key (OGPlot or PooledPlots) \\[5pt]
+    Local pk & 48-byte & Local public-key identify the plot provide the proof \\[5pt]
+    \rowcolor{lightgray!30} Farmer pk & 48-byte & Identify the farmer \\[5pt]
+    K & 1-byte & The size of the plot file \\[5pt]
+    \rowcolor{lightgray!30} Proof & multi-bytes & The proof of space \\[5pt]
+    \hline
+\end{tabular}
+\subsubsection{VDF proofs}
+\begin{flushleft}
+    Verify VDF proof to ensure that the prover has spent a certain number of times.
+\end{flushleft}
+\begin{tabular}{ |p{3cm}|p{3cm}|p{6cm}| }
+    \hline
+    \rowcolor{lightgray}\textbf{Name} & \textbf{Data type} & \textbf{Description} \\[5pt]
+    \hline
+    Y & multi-bytes & large prime discriminant \\[5pt]
+    \rowcolor{lightgray!30} Proof & multi-bytes & The proof of time \\[5pt]
+    Witness type & 1-byte & The type of witness \\[5pt]
+    \rowcolor{lightgray!30} Iterations & 64-bit & The number of iterations \\[5pt]
+    \hline
+\end{tabular}
+\subsubsection{Void blocks}
+\begin{flushleft}
+    Void block is required when no proof of space can be found from the entired network. Include a void block in order to mix a new challenge, but it requires the prover spend a certain number of times. Theoratically, a block can obtain more than one void blocks.
+\end{flushleft}
+\begin{tabular}{ |p{3cm}|p{3cm}|p{6cm}| }
+    \hline
+    \rowcolor{lightgray}\textbf{Name} & \textbf{Data type} & \textbf{Description} \\[5pt]
+    \hline
+    Y & multi-bytes & large prime discriminant \\[5pt]
+    \rowcolor{lightgray!30} Proof & multi-bytes & The proof of time \\[5pt]
+    Witness type & 1-byte & The type of witness \\[5pt]
+    \rowcolor{lightgray!30} Iterations & 64-bit & The number of iterations \\[5pt]
+    \hline
+\end{tabular}
+\subsubsection{Farmer signature}
+\begin{flushleft}
+    Farmer signature is used to ensure the owner of the proof of space. The signature can be verified by farmer-pk. The number of bytes of the signature is 96.
+\end{flushleft}
+\subsubsection{Quality}
+\begin{flushleft}
+    A 64-bit number represents the quality of proof of space.
+\end{flushleft}
+\subsubsection{Difficulty}
+\begin{flushleft}
+    Difficulty is a 64-bit constant number represents the network space.
+\end{flushleft}
+\subsection{Verify block}
+\begin{flushleft}
+    The following steps list all required checks to ensure the validity of a block.
+\end{flushleft}
+\begin{enumerate}
+    \item Check previous block
+    \item Check duration of VDF
+    \item Check number of iterations of VDF
+    \item Check void blocks
+    \item Check difficulty
+    \item Check challenge depends on previous block and void blocks
+    \item Check the quality of the proof
+    \item Check the number of iterations
+    \item Check the proof of space
+    \item Check the proof of VDF
+    \item Verify farmer's signature
+    \item Check coinbase
+    \item Check validity of pledges
+\end{enumerate}
 \section{Economic model}
 \begin{flushleft}
     Economic has been improved after the hard-fork.
@@ -225,3 +306,4 @@
     3 years & $100\%$ \\[5pt]
     \hline
 \end{tabular}
+
