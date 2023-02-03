@@ -218,18 +218,23 @@ Hash $\#8191$ and Hash $\#8190$. This time we pre-append Hash $\#8190$ to the la
 \begin{flushleft}
     The first thing that happens when you start mining, is that the miner talks to the wallet and asks for mining information. This information contains a new generation signature, base target, and the next block height. Before the wallet sends over this info, it creates the generation signature by taking the previous generation signature together with plot id and runs this though shabal256 to get the new hash. The miner will now take the new 32 byte generation signature, and the 8byte block height, and put them together as a seed for Shabal256. The result will be a hash value called Generation hash.
 \end{flushleft}
+\input{graph-generation_hash}
 \begin{flushleft}
     Now, the miner will do a small mathematical operation on this hash to find out which scoop number to use when processing the plot files. This is done by taking the generation hash modulo 4096, as there are only that many scoops
 \end{flushleft}
+\begin{equation}
+    ({GenHash}) _{mod} ({4096}) = Scoop Number
+\end{equation}
 \begin{flushleft}
     Next step for the miner is to read all the 64-byte long scoops from all nonces in all plot files. It will process them individually through shabal256 together with the new generation signature to get a new hash called target. This target is now divided with base target and the first 8bytes of the result is the value deadline.
     \begin{equation}
         Target = shabal256 (scoop data, generation signature)
     \end{equation}
     \begin{equation}
-        Deadline = target / base target;
+        Deadline = \frac{target}{base target};
     \end{equation}
 \end{flushleft}
+\input{graph-generate_the_deadline}
 \begin{flushleft}
     To prevent so-called "nonce spamming" to the wallet, the miner usually checks if the current deadline found is lower than the lowest one it has found so far. Usually there is also a max value that can be set, as ridiculously large deadlines are of no use to anyone. After these checks, the miner submits information to the wallet. This information contains the numeric plot ID bound to the plot file, and the nonce number that contains the scoop data used to generate the deadline.
 \end{flushleft}
