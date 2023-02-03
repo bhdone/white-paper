@@ -1,4 +1,4 @@
-const { label, labelRect, rect } = require('./tikzpicture.js');
+const { label, labelRect, rect, fillRect } = require('./tikzpicture.js');
 
 
 exports.hashPack = (x, y, scoopNum, hashList) => {
@@ -34,6 +34,30 @@ exports.hashPack = (x, y, scoopNum, hashList) => {
         return {
             script,
             props: { x, y, width: WIDTH, height: HEIGHT, scoopNum, hashes },
+        }
+    }
+}
+
+exports.hashFunc = (x, y, insideShapes, hashTitle) => {
+    const WIDTH = 1.5;
+    const MARGIN_WIDTH = 0.1;
+    const ITEM_HEIGHT = 0.4;
+    const ROW_HEIGHT = ITEM_HEIGHT + MARGIN_WIDTH;
+    const HASH_HEIGHT = 0.35;
+    return () => {
+        let script = '';
+        script += fillRect(x, y, WIDTH + MARGIN_WIDTH * 2, ROW_HEIGHT * insideShapes.length + MARGIN_WIDTH * 2 + HASH_HEIGHT, 'lightgray!30')().script;
+        script += label(x + MARGIN_WIDTH, y + insideShapes.length * ROW_HEIGHT + MARGIN_WIDTH, hashTitle, 'black', 'south west')().script;
+        for (let i = 0; i < insideShapes.length; ++i) {
+            script += labelRect(x + MARGIN_WIDTH, i * ROW_HEIGHT + y + MARGIN_WIDTH, 1.5, ITEM_HEIGHT, insideShapes[i], 'black')().script;
+        }
+        return {
+            script,
+            props: {
+                x, y, insideShapes, hashTitle,
+                hashTitle: { x: x + WIDTH + 0.1, y: y + ROW_HEIGHT * insideShapes.length + MARGIN_WIDTH + HASH_HEIGHT / 2 },
+                firstHash: { x, y: y + ITEM_HEIGHT / 2 + MARGIN_WIDTH },
+            },
         }
     }
 }
