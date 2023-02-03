@@ -49,7 +49,7 @@ exports.rect = (x, y, width, height, color) => {
     }
 }
 
-exports.fillrect = (x, y, width, height, color) => {
+exports.fillRect = (x, y, width, height, color) => {
     return () => {
         let tag = '';
         if (color) {

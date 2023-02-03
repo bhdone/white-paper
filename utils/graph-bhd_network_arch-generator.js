@@ -1,4 +1,4 @@
-const { finalize, add, label, rect, line, arrowLine, fontSize } = require('./lib/tikzpicture');
+const { finalize, add, label, rect, fillRect, line, arrowLine, fontSize } = require('./lib/tikzpicture');
 
 const computer = (x, y, title) => {
     const WIDTH = 0.4;
@@ -67,6 +67,19 @@ const blockChain = (x, y, n, highlightTopColor) => {
     }
 }
 
+const colorNote = (x, y, color, title) => {
+    return () => {
+        const colorRectWidth = 0.2;
+        let script = '';
+        script += fillRect(x, y, colorRectWidth, colorRectWidth, color)().script;
+        script += label(x + colorRectWidth, y + colorRectWidth / 2, title, 'black', 'west')().script;
+        return {
+            script,
+            props: { x, y, color, title },
+        }
+    }
+}
+
 const WIDTH = 13;
 const HEIGHT = 4;
 
@@ -78,7 +91,7 @@ const LINE_Y = 3.5;
 add(line(0, LINE_Y, WIDTH, LINE_Y, 'lightgray'));
 add(line(0, LINE_Y + 0.05, WIDTH, LINE_Y + 0.05, 'lightgray'));
 
-const blockChainProps = add(blockChain(11, -1, 3, 'green'));
+const blockChainProps = add(blockChain(11, -2.2, 3, 'green'));
 
 const computers = [
     { x: 0.5, y: 1, title: 'node 1' },
@@ -107,5 +120,11 @@ for (const comp of computers) {
         add(arrowLine(r.right.x + PADDING_WIDTH, r.right.y, blockChainProps.topBlkProps.left.x - PADDING_WIDTH, blockChainProps.topBlkProps.left.y, 'green'));
     }
 }
+
+const NOTE_Y = -2;
+const NOTE_HEIGHT = 0.3;
+add(colorNote(0, NOTE_Y, 'blue', 'Send transactions to P2P network'));
+add(colorNote(0, NOTE_Y + NOTE_HEIGHT, 'red', 'Collect transactions from P2P network'));
+add(colorNote(0, NOTE_Y + NOTE_HEIGHT * 2, 'green', 'Build new block from collected transactions'));
 
 console.log(finalize());
