@@ -1,15 +1,18 @@
-TEX_FILES=$(wildcard *.tex)
 MAINNAME=btchd-white_paper
+TEX_FILES=$(wildcard *.tex)
+
+GENERATOR_FILES=$(wildcard utils/*.js)
+GEN_TEX_FILES=$(patsubst utils/%-generator.js,%.tex,$(GENERATOR_FILES))
 
 all: $(MAINNAME).pdf
 
-graph-mining_pool_hash_power.tex: utils/graph-mining_pool_hash_power-generator.js
-	node utils/graph-mining_pool_hash_power-generator.js > graph-mining_pool_hash_power.tex
+$(GEN_TEX_FILES): %.tex: utils/%-generator.js
+	node $< > $@
 
-$(MAINNAME).pdf: $(MAINNAME).toc $(TEX_FILES) graph-mining_pool_hash_power.tex
+$(MAINNAME).pdf: $(MAINNAME).toc $(TEX_FILES) $(GEN_TEX_FILES)
 	xelatex $(MAINNAME).tex
 
-$(MAINNAME).toc: $(TEX_FILES) graph-mining_pool_hash_power.tex
+$(MAINNAME).toc: $(TEX_FILES) $(GEN_TEX_FILES)
 	xelatex $(MAINNAME).tex
 
 .PHONY: clean
