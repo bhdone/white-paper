@@ -1,4 +1,4 @@
-\chapter{Update to Chia consensus}
+chapter{Update to Chia consensus}
 \begin{flushleft}
     In the new version of BHD, consensus mechanism is updated.
     \begin{enumerate}
@@ -346,4 +346,8 @@
 \subsubsection{Burning mechanism}
 \begin{flushleft}
     BitcoinHD will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD from this account even the fundation. All burned BHD will be sent to this account, and the amount required of mining will be re-calculated on next block.
+\end{flushleft}
+\subsection{Foundation addresses}
+\begin{flushleft}
+    There is at least one foundation address to be able to use for generating new blocks without binding them with a valid farmer public-key. This is a mechanism to ensure that the network will keep generating new blocks and this allows new miner to create binding/pointing transaction to add miners to the network. Consensus ensures that the pledge amount of foundation addresses will not be able to calculate with full mortgage, even someone deposit pledge to the foundation addresses.
 \end{flushleft}
