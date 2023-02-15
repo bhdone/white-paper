@@ -333,3 +333,17 @@
 \begin{flushleft}
     Miner will receive $15\%$ rewards when the amount of pledge is less than $750_{BHD}$. The pledge amount also increases when the total supply is increased or the miner initialized more space to do the mining.
 \end{flushleft}
+\subsubsection{Withdraw an unexpired pledge}
+\begin{flushleft}
+    The withdrawal amount will be calculated according to the percentage of the pledged period when the pledge is withdrawn unexpired. The remaining amount will be directly burned on the blockchain. For example: there is a  pledge with total amount of $300B_{HD}$, the period of this pledge is 3 years. If we want to withdraw it after only 10 months. There are only a total of $83.33_{BHD}$ will be withdrawn, the remaining $216.67_{BHD}$ Will be burned.
+\end{flushleft}
+\begin{flushleft}
+    Formula to calculate the amount
+\end{flushleft}
+\begin{equation}
+    Withdrawal_{BHD} = Total_{BHD} * \frac{Time_{Elapsed}}{Time_{Agreed}}
+\end{equation}
+\subsubsection{Burning mechanism}
+\begin{flushleft}
+    BitcoinHD will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD from this account even the fundation. All burned BHD will be sent to this account, and the amount required of mining will be re-calculated on next block.
+\end{flushleft}
