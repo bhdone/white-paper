@@ -1,6 +1,6 @@
 chapter{Update to Chia consensus}
 \begin{flushleft}
-    In the new version of BHD, consensus mechanism is updated.
+    In the new version of BHD1, consensus mechanism is updated.
     \begin{enumerate}
         \item Consensus has been upgraded to Chia's PoST
         \item Economic model is updated
@@ -8,10 +8,10 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \section{Introduction}
 \begin{flushleft}
-    Decenterialized consensus algorithms require to consume scarce resources, such as computing power, staked money and storage space. BHD is continuing to use storage space to secure the network. Timelord has been added to provide a reliable cryptographic. By adding timelord to increase the security of entired network.
+    Decenterialized consensus algorithms require to consume scarce resources, such as computing power, staked money and storage space. BHD1 is continuing to use storage space to secure the network. Timelord has been added to provide a reliable cryptographic. By adding timelord to increase the security of entired network.
 \end{flushleft}
 \begin{flushleft}
-    BHD cryptocurrency system combines Proof of Space (PoS) and Time (PoT). All required proofs are submitted to block-chain and can be easily verified. Miners need to find the correct answer by searching those random-looking data to win the lottery. No funds, special hardware, registration or permission is required to join except a hard driver and internet connection.
+    BHD1 cryptocurrency system combines Proof of Space (PoS) and Time (PoT). All required proofs are submitted to block-chain and can be easily verified. Miners need to find the correct answer by searching those random-looking data to win the lottery. No funds, special hardware, registration or permission is required to join except a hard driver and internet connection.
 \end{flushleft}
 \section{Proof of Space}
 \begin{flushleft}
@@ -67,10 +67,10 @@ chapter{Update to Chia consensus}
 \begin{flushleft}
     \textbf{INFO}\\[5pt]
     \textit{``Throughout this website, we'll make a simple assumption that a single disk seek requires 10ms. In reality, this is typically 5-10ms, so we're using a conservative estimate.\\[5pt]
-    The 10ms estimate also takes into account the time required to transfer data after the seek. While storage industry specs typically assume that large files are being transferred, this does not hold true for BHD farming, where proof lookups only require a tiny amount of data to be transferred. Therefore, it's safe to assume the transfer is almost instant.''}
+    The 10ms estimate also takes into account the time required to transfer data after the seek. While storage industry specs typically assume that large files are being transferred, this does not hold true for BHD1 farming, where proof lookups only require a tiny amount of data to be transferred. Therefore, it's safe to assume the transfer is almost instant.''}
 \end{flushleft}
 \begin{flushleft}
-    BHD also uses a further optimization to disqualify a certain proportion of plots from eligibility for each challenge. This is referred to as the plot filter. The current requirement is that the hash of the plot ID, challenge starts with 9 zeros. This excludes 511 out of every 512 plots. The filter hurts everyone equally (except for replotting attackers), and is therefore fair.
+    BHD1 also uses a further optimization to disqualify a certain proportion of plots from eligibility for each challenge. This is referred to as the plot filter. The current requirement is that the hash of the plot ID, challenge starts with 9 zeros. This excludes 511 out of every 512 plots. The filter hurts everyone equally (except for replotting attackers), and is therefore fair.
 \end{flushleft}
 \begin{flushleft}
     The plot filter effectively reduces the amount of resources required for farming by 512x -- each plot only requires a few disk reads every few minutes. A miner with 1 PiB of storage (10,000 plots) will only have an average of 20 plots that pass the filter for each challenge. Even if these plots all are stored on slow HDDs, and connected to a single Raspberry Pi, the average time required to respond to each challenge will be less than two seconds. This is well within the limits to avoid missing out on any challenges.
@@ -106,11 +106,11 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \input{graph-pot_prover_verifier}
 \begin{flushleft}
-    The VDF used by BHD is repeated squaring in a class group of unknown order. There are two main ways to generate a large group that has an unknown order:
+    The VDF used by BHD1 is repeated squaring in a class group of unknown order. There are two main ways to generate a large group that has an unknown order:
 \end{flushleft}
 \begin{enumerate}
     \item Use an RSA modulus, and use the integers mod N as a group. The order of the group is unknown if you can generate your modulus with many participating parties using an MPC ceremony.
-    \item An easier approach is to use classgroups with a large prime discriminant, which are groups of unknown order. This does not require any complex or trusted setup, so we chose this option for BHD.
+    \item An easier approach is to use classgroups with a large prime discriminant, which are groups of unknown order. This does not require any complex or trusted setup, so we chose this option for BHD1.
 \end{enumerate}
 \begin{flushleft}
     To create one of these groups, one just needs a large, random, prime number. The drawbacks are that classgroup code is less tested in real life, and optimizations are less well-known than in RSA groups. We use the same initial element for the squaring (a=2, b=1 classgroup element), and instead use the challenge to generate a new random prime number for each VDF, which is used as the discriminant. The discriminant has a size of 1024 bits, which means the proof sizes are around 1024 bits. We use the Wesolowski scheme split into n (1<=n<=64) phases so that creating the proofs is very fast. Since the n-wesolowski proofs can be large, we replace them with 1-wesolowski proofs as soon as they are available. These are smaller, but require more time to make. The proofs themselves are not committed to on-chain, so they are replaceable.
@@ -127,22 +127,22 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \section{Blockchain}
 \begin{flushleft}
-    After BHD blockchain hard-fork, some of the properties have been changed according the consensus algorithms.
+    After BHD1 blockchain hard-fork, some of the properties have been changed according the consensus algorithms.
 \end{flushleft}
 \begin{tabular}{ p{4cm} p{2.5cm} p{2.5cm} p{2.5cm}  }
     \hline
-    \rowcolor{lightgray} \textbf{Parameter} & \textbf{BTC} & \textbf{BHD} & \textbf{BHD2} \\[5pt]
+    \rowcolor{lightgray} \textbf{Parameter} & \textbf{BTC} & \textbf{BHD1} & \textbf{BHD12} \\[5pt]
     \hline
     \textbf{Total Supply} & 21,000,000 & 21,000,000 & 63,000,000 \\[5pt]
     \rowcolor{lightgray!30} \textbf{Block Time} & 10mins & 3mins & 3mins \\[5pt]
     \textbf{Block Size} & 1M & 2M & 2M \\[5pt]
     \rowcolor{lightgray!30} \textbf{Halving Cycle} & every 4 years & every 4 years & every 4 years \\[5pt]
-    \textbf{Initial Block Reward} & 50 BTC & 15 BHD & 30 BHD \\[5pt]
+    \textbf{Initial Block Reward} & 50 BTC & 15 BHD1 & 30 BHD1 \\[5pt]
     \hline
 \end{tabular}
 \subsection{Challenge}
 \begin{flushleft}
-    The BHD consensus algorithm relies on timelords running VDFs for each block, which are adjusted periodically (and automatically) to take around 3 minutes. During every block, challenges are generated according previous block, and a sort of mini lottery starts, where farmers check their plots for proofs of space. When farmers find a Proof of Space that qualifies, they broadcast it to the network after the VDF calculation with required\_iterations is finished.
+    The BHD1 consensus algorithm relies on timelords running VDFs for each block, which are adjusted periodically (and automatically) to take around 3 minutes. During every block, challenges are generated according previous block, and a sort of mini lottery starts, where farmers check their plots for proofs of space. When farmers find a Proof of Space that qualifies, they broadcast it to the network after the VDF calculation with required\_iterations is finished.
 \end{flushleft}
 \begin{flushleft}
     A challenge is always a 256-bit hash. It is released when a new block has been added to blockchain. The challenge services both PoS and VDF.
@@ -167,7 +167,7 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \subsection{Blocks}
 \begin{flushleft}
-    BHD releases block every 3 minutes. The basic information are assembled into the block such as transactions, Proof of Space, VDF proofs and difficulty.
+    BHD1 releases block every 3 minutes. The basic information are assembled into the block such as transactions, Proof of Space, VDF proofs and difficulty.
 \end{flushleft}
 \subsubsection{Block generation steps}
 \begin{enumerate}
@@ -285,7 +285,7 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \subsection{Pledge improvement}
 \begin{flushleft}
-    The miner needs to pledge a certain amount of BHD to the chain, and the pledged amount is related to its pledge time. When the pledge time is less than three years, the pledge amount will be discounted. During the pledge time, these BHD will not be able to be withdrawn.
+    The miner needs to pledge a certain amount of BHD1 to the chain, and the pledged amount is related to its pledge time. When the pledge time is less than three years, the pledge amount will be discounted. During the pledge time, these BHD1 will not be able to be withdrawn.
 \end{flushleft}
 \subsubsection{Netspace}
 \begin{flushleft}
@@ -303,12 +303,12 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \begin{tabular}{ |p{5cm}|p{3cm}|p{3.5cm}| }
     \hline
-    \rowcolor{lightgray}\textbf{Period} & \textbf{Ratio} & \textbf{$1_{BHD}$ required} \\[5pt]
+    \rowcolor{lightgray}\textbf{Period} & \textbf{Ratio} & \textbf{$1_{BHD1}$ required} \\[5pt]
     \hline
-    Current Deposit (1 week) & $8\%$ & $12.5_{BHD}$ \\[5pt]
-    \rowcolor{lightgray!30} 1 year & $20\%$ & $5_{BHD}$ \\[5pt]
-    2 years & $50\%$ & $2_{BHD}$ \\[5pt]
-    \rowcolor{lightgray!30} 3 years & $100\%$ & $1_{BHD}$ \\[5pt]
+    Current Deposit (1 week) & $8\%$ & $12.5_{BHD1}$ \\[5pt]
+    \rowcolor{lightgray!30} 1 year & $20\%$ & $5_{BHD1}$ \\[5pt]
+    2 years & $50\%$ & $2_{BHD1}$ \\[5pt]
+    \rowcolor{lightgray!30} 3 years & $100\%$ & $1_{BHD1}$ \\[5pt]
     \hline
 \end{tabular}
 \subsubsection{Insufficient pledge amount}
@@ -317,35 +317,35 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \subsubsection{For example}
 \begin{flushleft}
-    We assume that there is a miner initialized $15_{PB}$ storage to do the mining. Assume that the current netspace of the entire network is $200_{PB}$ and the total supplied amount is $10,000_{BHD}$. Thus, according to the formula, the total amount that needs to be pledged per PB is $\frac{10,000}{200}=50_{BHD}$. The miner in order to obtain $100\%$ mining rewards, a total of $50_{BHD} * 15_{PB} = 750_{BHD}$ needs to be pledged to the chain.
+    We assume that there is a miner initialized $15_{PB}$ storage to do the mining. Assume that the current netspace of the entire network is $200_{PB}$ and the total supplied amount is $10,000_{BHD1}$. Thus, according to the formula, the total amount that needs to be pledged per PB is $\frac{10,000}{200}=50_{BHD1}$. The miner in order to obtain $100\%$ mining rewards, a total of $50_{BHD1} * 15_{PB} = 750_{BHD1}$ needs to be pledged to the chain.
 \end{flushleft}
 \textbf{$100\%$ rewards}
 \begin{flushleft}
     The miner can choose one of the following pledge plans to get $100\%$ rewards:
     \begin{enumerate}
-        \item Deposit $9375_{BHD}$ to the chain with period ``Current Deposit''
-        \item Deposit $3750_{BHD}$ to the chain with period ``1 year''
-        \item Deposit $1500_{BHD}$ to the chain with period ``2 years''
-        \item Deposit $750_{BHD}$ to the chain with period ``3 years''
+        \item Deposit $9375_{BHD1}$ to the chain with period ``Current Deposit''
+        \item Deposit $3750_{BHD1}$ to the chain with period ``1 year''
+        \item Deposit $1500_{BHD1}$ to the chain with period ``2 years''
+        \item Deposit $750_{BHD1}$ to the chain with period ``3 years''
     \end{enumerate}
 \end{flushleft}
 \textbf{$15\%$ rewards}
 \begin{flushleft}
-    Miner will receive $15\%$ rewards when the amount of pledge is less than $750_{BHD}$. The pledge amount also increases when the total supply is increased or the miner initialized more space to do the mining.
+    Miner will receive $15\%$ rewards when the amount of pledge is less than $750_{BHD1}$. The pledge amount also increases when the total supply is increased or the miner initialized more space to do the mining.
 \end{flushleft}
 \subsubsection{Withdraw an unexpired pledge}
 \begin{flushleft}
-    The withdrawal amount will be calculated according to the percentage of the pledged period when the pledge is withdrawn unexpired. The remaining amount will be directly burned on the blockchain. For example: there is a  pledge with total amount of $300_{BHD}$, the period of this pledge is 3 years. If we want to withdraw it after only 10 months. There are only a total of $83.33_{BHD}$ will be withdrawn, the remaining $216.67_{BHD}$ Will be burned.
+    The withdrawal amount will be calculated according to the percentage of the pledged period when the pledge is withdrawn unexpired. The remaining amount will be directly burned on the blockchain. For example: there is a  pledge with total amount of $300_{BHD1}$, the period of this pledge is 3 years. If we want to withdraw it after only 10 months. There are only a total of $83.33_{BHD1}$ will be withdrawn, the remaining $216.67_{BHD1}$ Will be burned.
 \end{flushleft}
 \begin{flushleft}
     Formula to calculate the amount
 \end{flushleft}
 \begin{equation}
-    Withdrawal_{BHD} = Total_{BHD} * \frac{Time_{Elapsed}}{Time_{Agreed}}
+    Withdrawal_{BHD1} = Total_{BHD1} * \frac{Time_{Elapsed}}{Time_{Agreed}}
 \end{equation}
 \subsubsection{Burning mechanism}
 \begin{flushleft}
-    BitcoinHD will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD from this account even the fundation. All burned BHD will be sent to this account, and the amount required of mining will be re-calculated on next block.
+    BitcoinHD1 will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD1 from this account even the fundation. All burned BHD1 will be sent to this account, and the amount required of mining will be re-calculated on next block.
 \end{flushleft}
 \subsection{Foundation addresses}
 \begin{flushleft}

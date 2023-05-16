@@ -46,7 +46,7 @@ const entries = [
     {
         time: 'Q1, 2023',
         title: '\\textbf{Chia consensus}',
-        desc: 'In 2023, BHD will be compatible \\\\with Chia\'s old agreement documents \\\\for mining.',
+        desc: 'In 2023, BHD1 will be compatible \\\\with Chia\'s old agreement documents \\\\for mining.',
         height: 2,
     },
     {
@@ -72,13 +72,13 @@ const entries = [
     {
         time: 'Sep 4, 2018',
         title: '\\textbf{PoC experiment}',
-        desc: 'BHD started conditional PoC \\\\experiment.',
+        desc: 'BHD1 started conditional PoC \\\\experiment.',
         height: 1.7,
     },
     {
         time: 'Aug 3, 2018',
         title: '\\textbf{Genesis block}',
-        desc: 'The BHD genesis block was \\\\mined. it initiated a new \\\\mining method, and first month \\\\of unconditional storage mining.',
+        desc: 'The BHD1 genesis block was \\\\mined. it initiated a new \\\\mining method, and first month \\\\of unconditional storage mining.',
         height: 2.2,
     }
 ]
