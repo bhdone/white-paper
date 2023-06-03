@@ -311,6 +311,10 @@ chapter{Update to Chia consensus}
     \rowcolor{lightgray!30} 3 years & $100\%$ & $1_{BHD1}$ \\[5pt]
     \hline
 \end{tabular}
+\subsubsection{Total amount update frequency}
+\begin{flushleft}
+    The number of total distributed amount is calculated once a month (total 20*24*30 heights), and the data will remain unchanged for one month until the next calculation. This means that the amount of currency that all miners need to pledge also changes every month. This mechanism simplifies the calculation of pledges, and miners no longer need to calculate the total distributed amount frequently.
+\end{flushleft}
 \subsubsection{Insufficient pledge amount}
 \begin{flushleft}
     When the amount of pledge is not enough for a miner to claim all rewards from a new block, miners will only get $15\%$ of the block rewards, the rest $85\%$ will be locked in the chain until the miner who has enough amount of pledge to claim all rewards.
@@ -345,7 +349,7 @@ chapter{Update to Chia consensus}
 \end{equation}
 \subsubsection{Burning mechanism}
 \begin{flushleft}
-    BitcoinHD1 will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD1 from this account even the fundation. All burned BHD1 will be sent to this account, and the amount required of mining will be re-calculated on next block.
+    BitcoinHD1 will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD1 from this account even the foundation. All burned BHD1 will be sent to this account, and the amount required of mining will be re-calculated on next block.
 \end{flushleft}
 \subsection{Foundation addresses}
 \begin{flushleft}
