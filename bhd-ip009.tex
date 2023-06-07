@@ -147,7 +147,7 @@ chapter{Update to Chia consensus}
 \begin{flushleft}
     A challenge is always a 256-bit hash. It is released when a new block has been added to blockchain. The challenge services both PoS and VDF.
 \end{flushleft}
-\subsection{Quality and ``required\_iterations''}
+\subsection{Quality and iterations}
 \subsubsection{Quality}
 \begin{flushleft}
     The number of quality is used to represent the quality of a proof of space which is found from plots. According the quality, an iterations will be calculated and it controls how many times should be passed before miner can post the block with the PoS.
@@ -234,10 +234,6 @@ chapter{Update to Chia consensus}
     \rowcolor{lightgray!30} Iterations & 64-bit & The number of iterations \\[5pt]
     \hline
 \end{tabular}
-\subsubsection{Void blocks}
-\begin{flushleft}
-    Void block is required when no PoS can be found from the entired network. Include a void block in order to mix a new challenge, but it requires the prover spend a certain number of times. The mechanism is to make sure the miner is not able to use it to select a better challenge that cost nothing but ensure the blockchain is continued when no PoS can be found from the entired network. Theoratically, a block can obtain more than one void blocks. It is exactly the same of a VDF proof but stores in an array.
-\end{flushleft}
 \subsubsection{Farmer signature}
 \begin{flushleft}
     Farmer signature is used to ensure the owner of the proof of space. The signature can be verified by ``farmer-pk''. The number of bytes of the signature is 96.
@@ -289,17 +285,14 @@ chapter{Update to Chia consensus}
 \end{flushleft}
 \subsubsection{Netspace}
 \begin{flushleft}
-    The amount that a miner needs to pledge will be related to its initialized space and total supplied amount. To calculate the pledge amount, use the formula below.
+    Assuming that the netspace of a miner is ``p'', the current netspace of the entire network is ``t'', and the current distributed amount is ``m'', then the current miner wants to achieve the condition of full pledge, and the amount of currency ``a'' needs to pledge is:
 \end{flushleft}
 \begin{equation}
-    Amount_{TB} = \frac{TotalSupplied}{NetworkSpace_{TB}}
+    a = \frac{p}{t} * m
 \end{equation}
-\begin{flushleft}
-    \textit{Please note: when the calculated netspace of the entire network is less than 100PB, we will assume the netspace of the entire network is 100PB.}
-\end{flushleft}
 \subsubsection{Lock period}
 \begin{flushleft}
-    Now the miner needs to select the type of period for every new pledge. It determines the ratio value of the total amount that the pledge amount actual is. The pledge will not be able to withdraw until the agreed day arrives.
+    Now the miner needs to select the type of period for every new pledge. It determines the ratio value of the total amount that the pledge amount actual is.
 \end{flushleft}
 \begin{tabular}{ |p{5cm}|p{3cm}|p{3.5cm}| }
     \hline
@@ -311,6 +304,17 @@ chapter{Update to Chia consensus}
     \rowcolor{lightgray!30} 3 years & $100\%$ & $1_{BHD1}$ \\[5pt]
     \hline
 \end{tabular}
+\subsubsection{Burn}
+\begin{flushleft}
+    When the pledge period has not yet expired, it is allowed to lose part of the pledged currency to withdraw the pledged amount, but part of the currency will be destroyed according to the pledged time. Assuming that ``p'' blocks have been pledged, a total of ``f'' blocks need to be pledged, and the amount of pledged currency is ``a''. Then, withdrawing the pledge with the amount of currency a in block ``p'' will return the amount ``w'' back, and $a-w$ is the amount of currency destroyed after this withdrawal.
+\end{flushleft}
+\begin{equation}
+    w = \frac{p}{f} * a
+\end{equation}
+\subsubsection{Burning mechanism}
+\begin{flushleft}
+    BitcoinHD1 will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD1 from this account even the foundation. All burned BHD1 will be sent to this account, and the amount required of mining will be re-calculated on next block.
+\end{flushleft}
 \subsubsection{Total amount update frequency}
 \begin{flushleft}
     The number of total distributed amount is calculated once a month (total 20*24*30 heights), and the data will remain unchanged for one month until the next calculation. This means that the amount of currency that all miners need to pledge also changes every month. This mechanism simplifies the calculation of pledges, and miners no longer need to calculate the total distributed amount frequently.
@@ -347,10 +351,6 @@ chapter{Update to Chia consensus}
 \begin{equation}
     Withdrawal_{BHD1} = Total_{BHD1} * \frac{Time_{Elapsed}}{Time_{Agreed}}
 \end{equation}
-\subsubsection{Burning mechanism}
-\begin{flushleft}
-    BitcoinHD1 will use a special (20-byte) accountID, it is filled by 0x23 of each byte. No one owns the private-key, and the consensus also prevent that no one will be able to make a new transaction that transfer BHD1 from this account even the foundation. All burned BHD1 will be sent to this account, and the amount required of mining will be re-calculated on next block.
-\end{flushleft}
 \subsection{Foundation addresses}
 \begin{flushleft}
     There is at least one foundation address to be able to use for generating new blocks without binding them with a valid farmer public-key. This is a mechanism to ensure that the network will keep generating new blocks and this allows new miner to create binding/pointing transaction to add miners to the network. Consensus ensures that the pledge amount of foundation addresses will not be able to calculate with full mortgage, even someone deposit pledge to the foundation addresses.
