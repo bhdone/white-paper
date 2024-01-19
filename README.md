@@ -1,6 +1,6 @@
-# BitcoinHD1 White Paper
+# DEPINC White Paper
 
-Here is the source files to generate the pdf file of BitcoinHD1 White Paper.
+Here is the source files to generate the pdf file of DEPINC White Paper.
 
 ## How to compile it
 
