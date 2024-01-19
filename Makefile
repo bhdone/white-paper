@@ -1,4 +1,4 @@
-MAINNAME=btchd-white_paper
+MAINNAME=depinc-white_paper
 TEX_FILES=$(wildcard *.tex)
 
 GENERATOR_FILES=$(wildcard utils/*.js)
@@ -10,7 +10,7 @@ all: $(MAINNAME).pdf
 $(GEN_TEX_FILES): %.tex: utils/%-generator.js
 	node $< > $@
 
-$(MAINNAME).pdf: $(MAINNAME).toc $(TEX_FILES) $(GEN_TEX_FILES) $(EX_JS_FILES) bhd_logo.svg
+$(MAINNAME).pdf: $(MAINNAME).toc $(TEX_FILES) $(GEN_TEX_FILES) $(EX_JS_FILES) depinc_logo.svg
 	xelatex --shell-escape $(MAINNAME).tex
 
 $(MAINNAME).toc: $(TEX_FILES) $(GEN_TEX_FILES) $(EX_JS_FILES)
